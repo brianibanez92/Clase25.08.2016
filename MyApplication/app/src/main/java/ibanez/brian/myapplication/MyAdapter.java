@@ -18,7 +18,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public MyAdapter(List<Persona> personas){
 
         this.personas = personas;
-
+        
     }
 
     @Override
@@ -26,8 +26,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layaout, parent, false);
         MyViewHolder mvh = new MyViewHolder(v);
-
         return mvh;
+
     }
 
     @Override
