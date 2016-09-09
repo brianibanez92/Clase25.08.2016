@@ -31,6 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Persona p=personas.get(position);
         holder.tvNombre.setText(p.getNombre());
         holder.tvApellido.setText(p.getApellido());
+        holder.index=position;
     }
 
     @Override
