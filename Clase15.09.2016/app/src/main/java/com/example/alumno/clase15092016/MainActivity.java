@@ -1,5 +1,6 @@
 package com.example.alumno.clase15092016;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Mi Toolbar");
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_layout, menu);
         return true;
+
     }
 
     @Override
@@ -37,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         } else if (R.id.opcion3 == item.getItemId()){
 
             Log.d("OPCION 3 ", "NOMBRE " + item.toString() + " -- ID"  + item.getItemId());
+
+        }
+
+        if (android.R.id.home == item.getItemId()){
+            Log.d("BOTON MENU ", "NOMBRE " + item.toString() + " -- ID"  + item.getItemId());
+
+            // Finalizo el activity.
+            this.finish();
 
         }
 
