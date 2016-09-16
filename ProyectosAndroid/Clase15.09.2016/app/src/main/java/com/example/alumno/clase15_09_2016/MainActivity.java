@@ -1,6 +1,7 @@
 package com.example.alumno.clase15_09_2016;
 
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem){
         if(R.id.setting==menuItem.getItemId()){
-            Log.d("setting",menuItem.toString() + "  ID:"+menuItem.getItemId());
+            //Log.d("setting",menuItem.toString() + "  ID:"+menuItem.getItemId());
+            Intent i=new Intent(this,SettingActivity.class);
+            i.putExtra("clave1","Valor String");
+            i.putExtra("clave2",53);
+            startActivity(i);
             return  true;
         }else if(R.id.opcion1==menuItem.getItemId()){
             Log.d("Opcion 1",menuItem.toString() + "  ID:"+menuItem.getItemId());
