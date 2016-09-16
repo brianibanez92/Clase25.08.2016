@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/icono"
+        android:orderInCategory="100"
+        android:title="Icono"
+        app:showAsAction="always">
+    </item>
+
     <item android:id="@+id/opcion1"
         android:orderInCategory="100"
         android:title="Opcion1"
-        app:showAsAction="always">
+        android:showAsAction="never">
     </item>
     <item android:id="@+id/opcion2"
         android:orderInCategory="100"
         android:title="Opcion2"
-        app:showAsAction="always">
+        android:showAsAction="never">
     </item>
     <item android:id="@+id/opcion3"
         android:orderInCategory="100"
         android:title="Opcion3"
-        app:showAsAction="always">
+        android:showAsAction="never">
     </item>
 </menu>

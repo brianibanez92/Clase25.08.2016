@@ -1,5 +1,6 @@
 package com.example.alumno.clase15092016;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Mi Toolbar");
+
+        // Boton "back".
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -52,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
             // Finalizo el activity.
             this.finish();
 
+        }
+
+        // Si apreto el icono me lleva a otra activity.
+        if (R.id.icono == item.getItemId()){
+
+            Intent i = new Intent(this, activity2.class);
+            i.putExtra("saludo", "Hola actividad dos!!!");
+            i.putExtra("numero", 777);
+            startActivity(i);
         }
 
 
