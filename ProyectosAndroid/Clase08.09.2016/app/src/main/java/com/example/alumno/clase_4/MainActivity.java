@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,5 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(myAdapter);
         RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
-
-
     }
 }
