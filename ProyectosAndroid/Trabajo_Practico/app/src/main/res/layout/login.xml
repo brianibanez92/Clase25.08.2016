@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_weight="0.04">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="5dp"
+            android:maxWidth="5dp"
+            android:id="@+id/imageView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:text="bienvenido a ESO QUIERO app.!"
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:layout_weight="0.50" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:text="La aplicación que te ayudará a recordar"
+            android:id="@+id/textView2"
+            android:gravity="center"
+            android:layout_weight="0.50" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/txt"/>
+    </LinearLayout>
+
+</LinearLayout>
