@@ -20,7 +20,8 @@ public class MiDialog extends android.support.v4.app.DialogFragment {
         builder.setTitle("Mi Titulo");
         builder.setMessage("mensaje!!!!");
 
-        builder.setNegativeButton("Aceptar", ml);
+        builder.setPositiveButton("Aceptar", ml);
+        builder.setNegativeButton("Cancelar", ml);
 
         return builder.create();
     }
