@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Trabajo Practico</string>
+    <string name="welcome">Bienvenidos a ESO QUIERO app.!</string>
+    <string name="description">La aplicación que te ayudará a recordar</string>
+    <string name="message_identification">Ingresa tu usuario o email</string>
+    <string name="message_password">Ingresa tu clave</string>
+    <string name="message_remember">Recordarme</string>
+    <string name="message_register">Registrarme</string>
+    <string name="message_login">Ingresar</string>
+</resources>

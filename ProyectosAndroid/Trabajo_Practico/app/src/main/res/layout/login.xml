@@ -1,47 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:weightSum="1">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_weight="0.04">
+        android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:maxHeight="5dp"
             android:maxWidth="5dp"
-            android:id="@+id/imageView" />
+            android:id="@+id/imageView"
+            android:src="@drawable/imagen_cara" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:text="bienvenido a ESO QUIERO app.!"
-            android:id="@+id/textView"
+            android:text="@string/welcome"
             android:gravity="center"
             android:layout_weight="0.50" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:text="La aplicación que te ayudará a recordar"
-            android:id="@+id/textView2"
+            android:text="@string/description"
             android:gravity="center"
             android:layout_weight="0.50" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.04">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/txt"/>
+            android:id="@+id/identification"
+            android:hint="@string/message_identification"
+            android:layout_weight="0.2"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/password"
+            android:hint="@string/message_password"
+            android:layout_weight="0.2"/>
+
+    </LinearLayout>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/message_remember"
+        android:id="@+id/checkbox"
+        android:layout_weight="0.2"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_register"
+            android:orientation="horizontal"
+            android:id="@+id/btnRegister"
+            android:layout_weight="0.1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_login"
+            android:orientation="horizontal"
+            android:id="@+id/btnLogin"
+            android:layout_weight="0.1"/>
+
     </LinearLayout>
 
 </LinearLayout>
