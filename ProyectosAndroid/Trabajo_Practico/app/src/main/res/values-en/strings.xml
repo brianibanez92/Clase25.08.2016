@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Practice Work</string>
-    <string name="welcome">I welcome the application you want.!</string>
+    <string name="app_name">You want app.!</string>
+    <string name="welcome">I welcome the application</string>
     <string name="description">The application that will hel you remember</string>
     <string name="message_identification">Enter your username or email</string>
     <string name="message_password">Enter your password</string>
     <string name="message_remember">Remember me</string>
     <string name="message_register">Register</string>
+    <string name="form_register">Registration Form</string>
     <string name="message_login">Login</string>
+    <string name="message_name">Name</string>
+    <string name="message_last_name">LastName</string>
+    <string name="message_repeat_password">Re-enter your password</string>
 </resources>
