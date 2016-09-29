@@ -9,7 +9,10 @@ import android.view.MenuItem;
 import android.support.v7.widget.LinearLayoutManager;
 
 
+import com.trabajo.utn.trabajo_practico.controladores.LoginController;
+import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.modelos.clases.Categoria;
+import com.trabajo.utn.trabajo_practico.vistas.LoginView;
 import com.trabajo.utn.trabajo_practico.vistas.adapters.CategoriaAdapter;
 
 import java.util.ArrayList;
@@ -21,6 +24,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        LoginModel model=new LoginModel();
+        LoginController controller=new LoginController(model);
+        LoginView view=new LoginView(model,this,controller);
+        controller.setView(view);
     }
 
 

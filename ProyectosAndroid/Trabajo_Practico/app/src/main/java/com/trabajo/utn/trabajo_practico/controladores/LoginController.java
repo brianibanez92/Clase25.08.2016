@@ -1,8 +1,10 @@
 package com.trabajo.utn.trabajo_practico.controladores;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
+import com.trabajo.utn.trabajo_practico.MenuActivity;
 import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
@@ -27,13 +29,10 @@ public class LoginController implements View.OnClickListener  {
     }
 
     @Override
-    public void onClick(View v)
-    {
-
+    public void onClick(View v) {
         if(R.id.btnLogin==v.getId()){
-            Log.d("CLICK", "Se hizo click");
+            Log.d("CLICK", "Se hizo click en el boton Login");
         }
-
     }
 
 }
