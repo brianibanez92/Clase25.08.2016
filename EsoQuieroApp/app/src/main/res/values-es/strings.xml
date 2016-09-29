@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EsoQuieroApp</string>
+    <string name="tvLoginWelcome">Bienvenidos a ESO QUIERO app...!</string>
+    <string name="tvLoginInfo">La aplicación que te ayudará a recordar.</string>
+    <string name="etUsername">Ingresa tu usuario o email</string>
+    <string name="etPassword">Ingresa tu clave</string>
+    <string name="cbRememberMe">Recordarme</string>
+    <string name="btRegister">Registrarse</string>
+    <string name="btEnter">Ingresar</string>
+    <string name="CategoryListTitle">Lista de categorias</string>
+    <string name="tvNewCategoryTitle">Nueva Categoría...!</string>
+    <string name="etNewCategoryName">Nombre de la Categoría</string>
+    <string name="etNewCategoryDescription">Texto para ingresar una breve descripcion multilinea de la categoria.</string>
+    <string name="cbNewCategoryFavorite">Favorita</string>
+    <string name="btNewCategoryCreate">Crear</string>
+    <string name="menuLogOut">Cerrar sesión</string>
+    <string name="menuFavorites">Favoritos</string>
+    <string name="menuCategories">Categorías</string>
+</resources>
