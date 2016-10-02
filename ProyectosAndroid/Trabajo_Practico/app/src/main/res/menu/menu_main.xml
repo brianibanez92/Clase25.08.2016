@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="CATEGORIAS" app:showAsAction="always" android:orderInCategory="100" android:id="@+id/categorias"/>
+    <item android:title="Categorias" app:showAsAction="always" android:orderInCategory="70" android:id="@+id/categorias"/>
+    <item android:title="Favoritos" app:showAsAction="always" android:orderInCategory="70" android:id="@+id/favoritos"/>
+    <item android:title="Cerrar sesión" app:showAsAction="always" android:orderInCategory="70" android:id="@+id/cerrar_sesion"/>
 </menu>

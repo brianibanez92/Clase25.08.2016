@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.app.ActionBar;
-/**
- * Created by julian.moreno on 9/28/2016.
- */
 public class MenuActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +12,6 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Mi toolbar");
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
     @Override
@@ -30,10 +26,7 @@ public class MenuActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-
-
         return super.onOptionsItemSelected(item);
     }
 }
