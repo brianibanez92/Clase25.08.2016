@@ -32,9 +32,4 @@ public class LoginActivity extends AppCompatActivity {
         controller.setView(view);
     }
 
-    public void getActivityMenu(){
-        Intent i=new Intent(this,MenuActivity.class);
-        startActivity(i);
-    }
-
 }

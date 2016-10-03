@@ -2,12 +2,12 @@ package com.trabajo.utn.trabajo_practico.controladores;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
+import com.trabajo.utn.trabajo_practico.CategoriasActivity;
 import com.trabajo.utn.trabajo_practico.LoginActivity;
-import com.trabajo.utn.trabajo_practico.MenuActivity;
 import com.trabajo.utn.trabajo_practico.R;
+import com.trabajo.utn.trabajo_practico.RegistroActivity;
 import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
 
@@ -35,9 +35,15 @@ public class LoginController implements View.OnClickListener  {
 
     @Override
     public void onClick(View v) {
+        Context context=v.getContext();
+        Intent i;
         if(R.id.btnLogin==v.getId()){
-            loginActivity.getActivityMenu();
+            i=new Intent(context, CategoriasActivity.class);
+            context.startActivity(i);
+        }
+        if(R.id.btnRegister==v.getId()){
+            i=new Intent(context, RegistroActivity.class);
+            context.startActivity(i);
         }
     }
-
 }
