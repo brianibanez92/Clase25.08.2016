@@ -1,14 +1,13 @@
 package com.trabajo.utn.trabajo_practico.vistas.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.List;
 
 import com.trabajo.utn.trabajo_practico.R;
-import com.trabajo.utn.trabajo_practico.modelos.clases.Categoria;
+import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
 import com.trabajo.utn.trabajo_practico.vistas.holders.CategoriasViewHolder;
 
 /**
@@ -30,9 +29,10 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriasViewHolder>
 
      @Override
      public void onBindViewHolder(CategoriasViewHolder holder, int position) {
-          Categoria p=categorias.get(position);
-          holder.tvNombre.setText(p.getNombre());
-          holder.tvDescripcion.setText(p.getDescripcion());
+          Categoria c=categorias.get(position);
+          holder.tvNombre.setText(c.getNombre());
+          holder.tvDescripcion.setText(c.getDescripcion());
+          if(c.getIdFoto()!=0){holder.ivFoto.setImageResource(c.getIdFoto());}
           holder.index=position;
      }
 

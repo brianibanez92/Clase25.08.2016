@@ -13,7 +13,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageView"
-            android:src="@drawable/imagen_cara"
+            android:src="@drawable/logo"
             android:layout_gravity="center_horizontal" />
         <TextView
             android:layout_width="match_parent"

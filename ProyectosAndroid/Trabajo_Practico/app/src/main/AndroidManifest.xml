@@ -8,14 +8,14 @@
 
         <uses-permission android:name="android.permission.CAMERA"/>
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" android:label="@string/lbl_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CategoriasActivity"/>
-        <activity android:name=".RegistroActivity"/>
+        <activity android:name=".CategoriasActivity" android:label="@string/lbl_category"/>
+        <activity android:name=".RegistroActivity" android:label="@string/lbl_registration"/>
     </application>
 
 </manifest>
