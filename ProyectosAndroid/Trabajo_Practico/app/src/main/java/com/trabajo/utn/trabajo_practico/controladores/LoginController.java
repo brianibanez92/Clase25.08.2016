@@ -2,6 +2,7 @@ package com.trabajo.utn.trabajo_practico.controladores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.trabajo.utn.trabajo_practico.CategoriasActivity;
@@ -38,8 +39,14 @@ public class LoginController implements View.OnClickListener  {
         Context context=v.getContext();
         Intent i;
         if(R.id.btnLogin==v.getId()){
-            i=new Intent(context, CategoriasActivity.class);
-            context.startActivity(i);
+
+            if(view.getTxtUser().getText().toString().isEmpty()){
+
+            }else{
+                Log.d("CLICK", "Usuario: "+view.getTxtUser().getText());
+            }
+            //i=new Intent(context, CategoriasActivity.class);
+            //context.startActivity(i);
         }
         if(R.id.btnRegister==v.getId()){
             i=new Intent(context, RegistroActivity.class);

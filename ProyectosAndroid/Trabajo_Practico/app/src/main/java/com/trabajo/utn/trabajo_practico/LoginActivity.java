@@ -8,7 +8,8 @@ import com.trabajo.utn.trabajo_practico.controladores.LoginController;
 import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
 
-public class LoginActivity extends AppCompatActivity {
+public class
+        LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
