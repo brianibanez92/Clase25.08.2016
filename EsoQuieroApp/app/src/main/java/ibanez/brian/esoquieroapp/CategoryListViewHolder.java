@@ -1,14 +1,10 @@
-package ibanez.brian.esoquieroapp.Views;
+package ibanez.brian.esoquieroapp;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
-import ibanez.brian.esoquieroapp.CategoryListActivity;
-import ibanez.brian.esoquieroapp.Models.CategoryModel;
-import ibanez.brian.esoquieroapp.R;
 
 /**
  * Created by brian.ibanez on 27/09/2016.
@@ -35,11 +31,12 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder implements V
     @Override
     public void onClick(View view) {
 
-        CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setCategoryName(this.tvCategoryName.getText().toString());
-        categoryModel.setDescription(this.tvDescription.getText().toString());
-        categoryModel.setFavorite(this.cbFavorite.isChecked());
-        this.categoryListActivity.goToNewCategoryActivityRead(categoryModel);
+        Intent i = new Intent(this.categoryListActivity, CategoryActivity.class);
+        i.putExtra("categoryName", this.tvCategoryName.getText().toString());
+        i.putExtra("description", this.tvDescription.getText().toString());
+        i.putExtra("favorite", this.cbFavorite.isChecked());
+        i.putExtra("position", this.index);
+        this.categoryListActivity.startActivity(i);
 
     }
 
@@ -48,34 +45,14 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder implements V
         return tvCategoryName;
     }
 
-    public void setTvCategoryName(TextView tvCategoryName) {
-
-        this.tvCategoryName = tvCategoryName;
-    }
-
     public TextView getTvDescription() {
 
         return tvDescription;
     }
 
-    public void setTvDescription(TextView tvDescription) {
-
-        this.tvDescription = tvDescription;
-    }
-
     public CheckBox getCbFavorite() {
 
         return cbFavorite;
-    }
-
-    public void setCbFavorite(CheckBox cbFavorite) {
-
-        this.cbFavorite = cbFavorite;
-    }
-
-    public int getIndex() {
-
-        return index;
     }
 
     public void setIndex(int index) {

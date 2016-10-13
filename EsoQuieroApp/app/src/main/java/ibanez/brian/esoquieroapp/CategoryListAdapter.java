@@ -1,28 +1,25 @@
-package ibanez.brian.esoquieroapp.Controllers;
+package ibanez.brian.esoquieroapp;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.List;
-import ibanez.brian.esoquieroapp.CategoryListActivity;
+
+import ibanez.brian.esoquieroapp.Models.CategoryListModel;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
-import ibanez.brian.esoquieroapp.R;
-import ibanez.brian.esoquieroapp.Views.CategoryListViewHolder;
 
 /**
  * Created by brian.ibanez on 27/09/2016.
  */
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHolder> {
 
-    private CategoryModel categoryModel;
+    private CategoryListModel categoryListModel;
     private CategoryListViewHolder categoryListViewHolder;
     private CategoryListActivity categoryListActivity;
-    private List<CategoryModel> items;
 
-    public CategoryListAdapter(List<CategoryModel> items, CategoryListActivity categoryListActivity){
+    public CategoryListAdapter(CategoryListModel categoryListModel, CategoryListActivity categoryListActivity){
 
-        this.items = items;
+        this.categoryListModel = categoryListModel;
         this.categoryListActivity = categoryListActivity;
     }
 
@@ -41,7 +38,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHo
     @Override
     public void onBindViewHolder(CategoryListViewHolder holder, int position) {
 
-        CategoryModel item = this.items.get(position);
+        CategoryModel item = this.categoryListModel.getCategories().get(position);
         holder.getTvCategoryName().setText(item.getCategoryName());
         holder.getTvDescription().setText(item.getDescription());
         holder.getCbFavorite().setChecked(item.getFavorite());
@@ -51,7 +48,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHo
     @Override
     public int getItemCount() {
 
-        return this.items.size();
+        return this.categoryListModel.getCategories().size();
     }
 
 }

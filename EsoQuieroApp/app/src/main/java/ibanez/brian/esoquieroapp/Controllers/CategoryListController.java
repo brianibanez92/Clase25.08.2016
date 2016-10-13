@@ -1,9 +1,11 @@
 package ibanez.brian.esoquieroapp.Controllers;
 
+import android.content.Intent;
 import android.view.View;
 
 import ibanez.brian.esoquieroapp.CategoryListActivity;
-import ibanez.brian.esoquieroapp.Models.CategoryModel;
+import ibanez.brian.esoquieroapp.Models.CategoryListModel;
+import ibanez.brian.esoquieroapp.CategoryActivity;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.CategoryListView;
 
@@ -12,13 +14,13 @@ import ibanez.brian.esoquieroapp.Views.CategoryListView;
  */
 public class CategoryListController implements View.OnClickListener {
 
-    private CategoryModel categoryModel;
+    private CategoryListModel categoryListModel;
     private CategoryListView categoryListView;
     private CategoryListActivity categoryListActivity;
 
-    public CategoryListController(CategoryModel categoryModel, CategoryListActivity categoryListActivity) {
+    public CategoryListController(CategoryListModel categoryListModel, CategoryListActivity categoryListActivity) {
 
-        this.categoryModel = categoryModel;
+        this.categoryListModel = categoryListModel;
         this.categoryListActivity = categoryListActivity;
     }
 
@@ -31,7 +33,10 @@ public class CategoryListController implements View.OnClickListener {
     public void onClick(View view) {
 
         if (view.getId() == R.id.btAddCategory) {
-            this.categoryListActivity.goToNewCategoryActivityCreate();
+
+            Intent newCategoryActivity = new Intent(this.categoryListActivity, CategoryActivity.class);
+            this.categoryListActivity.startActivity(newCategoryActivity);
+
         }
 
     }
