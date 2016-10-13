@@ -52,5 +52,9 @@ public class LoginController implements View.OnClickListener  {
             i=new Intent(context, RegistroActivity.class);
             context.startActivity(i);
         }
+        if(R.id.btnLogin==v.getId()){
+            i=new Intent(context, CategoriasActivity.class);
+            context.startActivity(i);
+        }
     }
 }
