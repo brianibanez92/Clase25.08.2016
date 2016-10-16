@@ -10,9 +10,12 @@
     <string name="form_register">Formulario de registro</string>
     <string name="message_login">Ingresar</string>
     <string name="message_name">Nombre</string>
+    <string name="message_description">Descripcion</string>
     <string name="message_last_name">Apellido</string>
     <string name="message_repeat_password">Reingresa tu clave</string>
     <string name="lbl_registration">Registracion</string>
     <string name="lbl_login">Iniciar sesion</string>
-    <string name="lbl_category">List Category</string>
+    <string name="lbl_category">Lista Categoria</string>
+    <string name="message_favourite">Favourite</string>
+    <string name="message_create_category">Crear Categoria</string>
 </resources>

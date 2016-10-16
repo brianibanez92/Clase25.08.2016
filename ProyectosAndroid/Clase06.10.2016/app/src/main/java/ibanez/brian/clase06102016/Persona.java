@@ -10,6 +10,14 @@ public class Persona {
     private String phoneNumber;
     private String img;
 
+    public Persona(){super();}
+    public Persona(String name,String surname,String phoneNumber,String img){
+        this();
+        this.name=name;
+        this.surname=surname;
+        this.phoneNumber=phoneNumber;
+        this.img=img;
+    }
     public String getName() {
         return name;
     }

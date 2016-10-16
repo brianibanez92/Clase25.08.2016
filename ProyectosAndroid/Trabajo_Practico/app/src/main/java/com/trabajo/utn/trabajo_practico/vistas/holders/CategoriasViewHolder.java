@@ -21,7 +21,7 @@ public class CategoriasViewHolder extends RecyclerView.ViewHolder implements Vie
     public CategoriasViewHolder(View v) {
         super(v);
         tvNombre=(TextView)v.findViewById(R.id.txtNombre);
-        tvDescripcion=(TextView)v.findViewById(R.id.txtApellido);
+        tvDescripcion=(TextView)v.findViewById(R.id.txtDescripcion);
         ivFoto=(ImageView)v.findViewById(R.id.imgFoto);
         v.setOnClickListener(this);
     }
