@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".CategoryActivity">
+    tools:context=".CategoriaActivity">
 
     <!--<TextView-->
     <!--android:layout_width="match_parent"-->
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/message_name"
-        android:id="@+id/etNewCategoryName"
+        android:id="@+id/txtNombreCategoria"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/message_description"
-        android:id="@+id/etNewCategoryDescription"
+        android:id="@+id/txtDescripcionCategoria"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/message_favourite"
-            android:id="@+id/cbNewCategoryFavorite"
+            android:id="@+id/chkFavorito"
             android:layout_gravity="left" />
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:text="@string/message_create_category"
-            android:id="@+id/btNewCategoryCreate"
+            android:id="@+id/btnCrearCategoria"
             android:layout_gravity="right" />
 
 

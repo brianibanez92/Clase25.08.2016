@@ -15,7 +15,8 @@
     <string name="message_repeat_password">Reingresa tu clave</string>
     <string name="lbl_registration">Registracion</string>
     <string name="lbl_login">Iniciar sesion</string>
-    <string name="lbl_category">Lista Categoria</string>
+    <string name="lbl_categorys">Lista Categoria</string>
+    <string name="lbl_category">Categoria</string>
     <string name="message_favourite">Favourite</string>
     <string name="message_create_category">Crear Categoria</string>
 </resources>

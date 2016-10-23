@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.trabajo.utn.trabajo_practico.modelos.CategoriasModel;
 import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
+import com.trabajo.utn.trabajo_practico.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 //Activity encargada de mostrar las categorias
 public class CategoriasActivity extends AppCompatActivity {
+    RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +48,14 @@ public class CategoriasActivity extends AppCompatActivity {
 
     //Metodos privados
     private void createActionBar(){
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
-           @Override
+            @Override
             public void onClick(View view) {
-               Log.d("Se hizo click aca","CLICK");
-           }
+                Utils.getLayout(rv,CategoriaActivity.class);
+            }
         });
     }
     private void createRecicledView(){
@@ -65,7 +66,7 @@ public class CategoriasActivity extends AppCompatActivity {
         lst.add(new Categoria("Jazmin","El mejor momento del día es ahora.",R.drawable.img_f1));
         lst.add(new Categoria("Fabio","Mi vida es como una casa abandonada."));
 
-        RecyclerView rv=(RecyclerView)findViewById(R.id.rvCategorias);
+        rv=(RecyclerView)findViewById(R.id.rvCategorias);
         CategoriasModel myAdapter=new CategoriasModel(lst);
         rv.setAdapter(myAdapter);
         RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
