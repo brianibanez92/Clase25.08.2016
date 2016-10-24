@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/message_description"
+        android:text=""
         android:id="@+id/txtDescripcionCategoria"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
@@ -51,6 +52,7 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:id="@+id/imgFotoCategoria"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/ic_camera_add_plus"/>
 

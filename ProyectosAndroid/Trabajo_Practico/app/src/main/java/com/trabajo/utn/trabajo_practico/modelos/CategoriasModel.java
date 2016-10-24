@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.trabajo.utn.trabajo_practico.R;
+import com.trabajo.utn.trabajo_practico.controladores.CategoriasController;
 import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
+import com.trabajo.utn.trabajo_practico.utils.categorias.HiloCategoria;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
 
 import java.util.List;
@@ -32,10 +34,8 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
     @Override
     public void onBindViewHolder(CategoriasView holder, int position) {
         Categoria c=categorias.get(position);
-        holder.getTvNombre().setText(c.getNombre());
-        holder.getTvDescripcion().setText(c.getDescripcion());
-        if(c.getIdFoto()!=0){holder.getIvFoto().setImageResource(c.getIdFoto());}
-        holder.setIndex(position);
+        HiloCategoria hilo=new HiloCategoria(c,holder,position);
+        hilo.start();
     }
 
     @Override

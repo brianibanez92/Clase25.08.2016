@@ -7,7 +7,6 @@ android:layout_height="wrap_content" android:layout_weight="1">
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/avatar"
         android:id="@+id/imgFoto" />
     <LinearLayout android:layout_marginLeft="10dp"
         android:orientation="vertical"

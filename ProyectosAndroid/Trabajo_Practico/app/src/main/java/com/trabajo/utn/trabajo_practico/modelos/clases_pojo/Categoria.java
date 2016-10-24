@@ -17,6 +17,7 @@ public class Categoria {
         this();
         this.nombre=nombre;
         this.descripcion=descripcion;
+        this.idFoto=R.drawable.avatar;
     }
     public Categoria(String nombre,String descripcion,int idFoto) {
        this(nombre,descripcion);

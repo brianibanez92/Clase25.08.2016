@@ -27,6 +27,7 @@ public class CategoriaView{
     private EditText txtNombre;
     private EditText txtDescripcion;
     private CheckBox chkFavorito;
+    private ImageView imgFoto;
     private CategoriaModel model;
 
     public CategoriaView(CategoriaModel model, CategoriaActivity ma, CategoriaController controller){
@@ -35,6 +36,7 @@ public class CategoriaView{
         this.setTxtNombre((EditText)ma.findViewById(R.id.txtNombreCategoria));
         this.setTxtDescripcion((EditText)ma.findViewById(R.id.txtDescripcionCategoria));
         this.setChkFavorito((CheckBox)ma.findViewById(R.id.chkFavorito));
+        this.setFoto((ImageView)ma.findViewById(R.id.imgFotoCategoria));
 
 
         this.getBtnCreate().setOnClickListener(controller);
@@ -78,5 +80,13 @@ public class CategoriaView{
 
     public void setModel(CategoriaModel model) {
         this.model = model;
+    }
+
+    public ImageView getFoto() {
+        return imgFoto;
+    }
+
+    public void setFoto(ImageView imgFoto) {
+        this.imgFoto = imgFoto;
     }
 }

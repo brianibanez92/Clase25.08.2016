@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.trabajo.utn.trabajo_practico.controladores.CategoriasController;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriasModel;
 import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
 import com.trabajo.utn.trabajo_practico.utils.Utils;
@@ -28,8 +29,21 @@ public class CategoriasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categorias_main);
-        this.createRecicledView();
-        this.createActionBar();
+
+        rv=(RecyclerView)findViewById(R.id.rvCategorias);
+        CategoriasModel model=new CategoriasModel(getLst());
+        rv.setAdapter(model);
+        RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
+        rv.setLayoutManager(manager);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.getLayout(rv,CategoriaActivity.class);
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,31 +60,36 @@ public class CategoriasActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Metodos privados
-    private void createActionBar(){
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utils.getLayout(rv,CategoriaActivity.class);
-            }
-        });
-    }
-    private void createRecicledView(){
-        List<Categoria> lst=new ArrayList<Categoria>();
-        lst.add(new Categoria("Azul","El destino mezcla las cartas, y nosotros las jugamos."));
-        lst.add(new Categoria("Julian","Este mundo no le queda mas futuro.",R.drawable.img_m1));
-        lst.add(new Categoria("Jose","Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin","El mejor momento del día es ahora.",R.drawable.img_f1));
-        lst.add(new Categoria("Fabio","Mi vida es como una casa abandonada."));
-
-        rv=(RecyclerView)findViewById(R.id.rvCategorias);
-        CategoriasModel myAdapter=new CategoriasModel(lst);
-        rv.setAdapter(myAdapter);
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
-        rv.setLayoutManager(manager);
+    private  List<Categoria> getLst() {
+        List<Categoria> lst = new ArrayList<Categoria>();
+        lst.add(new Categoria("Azul", "El destino mezcla las cartas, y nosotros las jugamos.",R.drawable.avatar));
+        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
+        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
+        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
+        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
+        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
+        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
+        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
+        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
+        lst.add(new Categoria("Azul", "El destino mezcla las cartas, y nosotros las jugamos.",R.drawable.avatar));
+        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
+        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
+        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
+        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
+        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
+        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
+        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
+        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
+        lst.add(new Categoria("Azul", "El destino mezcla las cartas, y nosotros las jugamos.",R.drawable.avatar));
+        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
+        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
+        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
+        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
+        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
+        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
+        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
+        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
+        return lst;
     }
 
 
