@@ -8,6 +8,7 @@
 
         <uses-permission android:name="android.permission.CAMERA"/>
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- Guardar un lugar exacto-->
+        <uses-permission android:name="android.permission.INTERNET"/>
         <activity android:name=".LoginActivity" android:label="@string/lbl_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

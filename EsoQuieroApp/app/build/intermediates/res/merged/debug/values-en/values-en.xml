@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="CategoryListTitle">Category list</string>
+    <string name="app_name">ThatIsWhatIWantApp</string>
+    <string name="btEnter">Enter</string>
+    <string name="btNewCategoryCreate">Create</string>
+    <string name="btRegister">Registering </string>
+    <string name="cbNewCategoryFavorite">Favorite</string>
+    <string name="cbRememberMe">Remember me</string>
+    <string name="etNewCategoryDescription">Text to enter a brief description of the category.</string>
+    <string name="etNewCategoryName">Category name</string>
+    <string name="etPassword">Enter your password</string>
+    <string name="etUsername">Enter your username or email</string>
+    <string name="menuCategories">Categories</string>
+    <string name="menuFavorites">Favorites</string>
+    <string name="menuLogOut">Logout</string>
+    <string name="tvLoginInfo">The application that will help you remember.</string>
+    <string name="tvLoginWelcome">Welcome to THAT IS WHAT I WANT app...!</string>
+    <string name="tvNewCategoryTitle">New category...!</string>
+</resources>

@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_camera_add_plus.png",
+        "source": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_camera_add_plus.png"
+    },
+    {
+        "merged": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_contact.png",
+        "source": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_contact.png"
+    },
+    {
+        "merged": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_smile.png",
+        "source": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_smile.png"
+    },
+    {
+        "merged": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_eso_quiero.png",
+        "source": "D:\\LavoratorioV\\LaboratorioV\\EsoQuieroApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_eso_quiero.png"
+    }
+]
