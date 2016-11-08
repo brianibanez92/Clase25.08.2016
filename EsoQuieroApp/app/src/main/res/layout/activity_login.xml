@@ -13,6 +13,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
         android:src="@mipmap/ic_smile"/>
 
     <TextView
@@ -37,6 +38,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:inputType="textEmailAddress"
         android:hint="@string/etUsername"
         android:id="@+id/etUsername"
         android:gravity="center"
@@ -45,6 +48,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:hint="@string/etPassword"
         android:id="@+id/etPassword"
         android:gravity="center"

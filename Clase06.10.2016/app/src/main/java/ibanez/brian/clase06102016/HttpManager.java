@@ -1,19 +1,26 @@
 package ibanez.brian.clase06102016;
 
 import android.util.Log;
+import android.util.Xml;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by brian.ibanez on 06/10/2016.
  */
 public class HttpManager {
 
-    public byte [] obtenerInformacion (String urlString) throws IOException{
+    public byte[] obtenerInformacion (String urlString) throws IOException{
 
         URL url = new URL(urlString);
 
@@ -49,7 +56,6 @@ public class HttpManager {
         }
 
         return baos.toByteArray();
-
     }
 
 }

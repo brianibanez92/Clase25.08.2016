@@ -3,19 +3,17 @@ package ibanez.brian.esoquieroapp.Views;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.MediaController;
-import android.widget.TextView;
 
 import ibanez.brian.esoquieroapp.Controllers.LoginController;
-import ibanez.brian.esoquieroapp.LoginActivity;
+import ibanez.brian.esoquieroapp.Activities.LoginActivity;
 import ibanez.brian.esoquieroapp.Models.LoginModel;
 import ibanez.brian.esoquieroapp.R;
 
 /**
  * Created by brian.ibanez on 26/09/2016.
  */
-public class LoginView {
-
+public class LoginView
+{
     private EditText etUsername;
     private EditText etPassword;
     private CheckBox cbRememberMe;
@@ -23,8 +21,8 @@ public class LoginView {
     private Button btEnter;
     private LoginModel loginModel;
 
-    public LoginView(LoginModel loginModel, LoginController loginController, LoginActivity loginActivity){
-
+    public LoginView(LoginModel loginModel, LoginController loginController, LoginActivity loginActivity)
+    {
         this.loginModel = loginModel;
         this.etUsername = (EditText) loginActivity.findViewById(R.id.etUsername);
         this.etPassword = (EditText) loginActivity.findViewById(R.id.etPassword);
@@ -34,7 +32,13 @@ public class LoginView {
 
         this.btEnter.setOnClickListener(loginController);
         this.btRegister.setOnClickListener(loginController);
+    }
 
+    public void updateModel()
+    {
+        this.loginModel.setPassword(this.etPassword.getText().toString());
+        this.loginModel.setUsername(this.etUsername.getText().toString());
+        this.loginModel.setRememberMe(this.cbRememberMe.isChecked());
     }
 
 }

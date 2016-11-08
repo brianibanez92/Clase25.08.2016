@@ -2,7 +2,7 @@ package ibanez.brian.esoquieroapp.Views;
 
 import android.widget.Button;
 
-import ibanez.brian.esoquieroapp.CategoryListActivity;
+import ibanez.brian.esoquieroapp.Activities.CategoryListActivity;
 import ibanez.brian.esoquieroapp.Controllers.CategoryListController;
 import ibanez.brian.esoquieroapp.Models.CategoryListModel;
 import ibanez.brian.esoquieroapp.R;

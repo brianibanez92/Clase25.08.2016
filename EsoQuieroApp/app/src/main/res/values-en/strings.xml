@@ -17,4 +17,12 @@
     <string name="menuLogOut">Logout</string>
     <string name="menuFavorites">Favorites</string>
     <string name="menuCategories">Categories</string>
+    <string name="tvRegisterTitle">THAT IS WHAT I WANT app...!</string>
+    <string name="tvRegisterSubTitle">Form of register</string>
+    <string name="etRegisterName">Name</string>
+    <string name="etRegisterSurname">Surname</string>
+    <string name="etRegisterUsername">Insert your user or email</string>
+    <string name="etRegisterPassword">Insert your password</string>
+    <string name="etRegisterRepeatPassword">Repeat your password</string>
+    <string name="btRegisterRegisterMe">Register me</string>
 </resources>

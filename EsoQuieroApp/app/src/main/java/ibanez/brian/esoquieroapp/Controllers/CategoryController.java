@@ -2,9 +2,8 @@ package ibanez.brian.esoquieroapp.Controllers;
 
 import android.view.View;
 
-import ibanez.brian.esoquieroapp.CategoryListActivity;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
-import ibanez.brian.esoquieroapp.CategoryActivity;
+import ibanez.brian.esoquieroapp.Activities.CategoryActivity;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.CategoryView;
 

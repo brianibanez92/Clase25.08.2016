@@ -30,13 +30,11 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.textView = (TextView)this.findViewById(R.id.tvHello);
-
         // Implemento la interfaz directamente en mi activity
         Handler.Callback callback = this;
         Handler handler = new Handler(this);
 
-        miHilo = new MiHilo(handler, "http://192.168.2.36:8080/personas.xml");
+        miHilo = new MiHilo(handler, "http://192.168.2.36:8080/personas.json");
         miHilo.start();
 
         //miHilo2 = new MiHilo(handler, "https://image.freepik.com/foto-gratis/hrc-tigre-siberiano-2-jpg_21253111.jpg");
@@ -58,7 +56,22 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
     @Override
     public boolean handleMessage(Message message) {
 
-        byte [] obj = (byte[]) message.obj;
+        List<Persona> personas = (List<Persona>)message.obj;
+        TextView tv1 =(TextView)findViewById(R.id.tv1);
+        TextView tv2 =(TextView)findViewById(R.id.tv2);
+        TextView tv3 =(TextView)findViewById(R.id.tv3);
+        TextView tv4 =(TextView)findViewById(R.id.tv4);
+
+        Persona p1 = personas.get(0);
+        Persona p2 = personas.get(1);
+        Persona p3 = personas.get(2);
+        Persona p4 = personas.get(3);
+        tv1.setText(p1.getName() + "-- " + p1.getSurname() + "--" + p1.getPhoneNumber());
+        tv2.setText(p2.getName() + "-- " + p2.getSurname() + "--" + p2.getPhoneNumber());
+        tv3.setText(p3.getName() + "-- " + p3.getSurname() + "--" + p3.getPhoneNumber());
+        tv4.setText(p4.getName() + "-- " + p4.getSurname() + "--" + p4.getPhoneNumber());
+
+        /*byte [] obj = (byte[]) message.obj;
         if (MENSAJE_ACTUALIZAR == message.arg1){
 
             String xml = new String(obj);
@@ -69,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
             try
             {
                 List<Persona> personas;
-
                 parse.setInput(new StringReader(xml));
                 int event = parse.getEventType();
 
@@ -77,11 +89,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
                 {
                     switch (event)
                     {
-
-                        case XmlPullParser.START_DOCUMENT:
-                        {
-                        }
-
                         case XmlPullParser.START_TAG:
                         {
                             String tag = parse.getName();
@@ -97,12 +104,9 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
                         }
 
-                        case XmlPullParser.END_TAG:
-                        {
-
-                        }
-
                     }
+
+                    event = parse.getEventType();
                 }
 
             } catch (XmlPullParserException e)
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
             Bitmap imgBitMap = BitmapFactory.decodeByteArray(obj, 0, obj.length);
 
             this.imageView.setImageBitmap(imgBitMap);
-        }
+        }*/
 
         return false;
     }

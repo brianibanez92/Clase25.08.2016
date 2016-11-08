@@ -1,48 +1,76 @@
 package ibanez.brian.esoquieroapp.Models;
 
+import java.util.Date;
+
 /**
  * Created by brian.ibanez on 28/09/2016.
  */
 public class CategoryModel {
 
+    private int id;
     private String categoryName;
     private String description;
     private boolean favorite;
+    private Date createdDate;
 
-    public CategoryModel(){
-
+    public CategoryModel()
+    {
     }
 
-    public CategoryModel(String categoryName, String description, boolean favorite){
-
+    public CategoryModel(int id, String categoryName, String description, boolean favorite, Date createdDate)
+    {
+        this.id = id;
         this.categoryName = categoryName;
         this.description = description;
         this.favorite = favorite;
-
+        this.createdDate = createdDate;
     }
 
-    public String getCategoryName() {
+    public String getCategoryName()
+    {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(String categoryName)
+    {
         this.categoryName = categoryName;
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public boolean getFavorite() {
+    public boolean getFavorite()
+    {
         return this.favorite;
     }
 
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
+    public void setFavorite(boolean favorite) { this.favorite = favorite; }
+
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public Date getCreatedDate()
+    {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate)
+    {
+        this.createdDate = createdDate;
     }
 
 }

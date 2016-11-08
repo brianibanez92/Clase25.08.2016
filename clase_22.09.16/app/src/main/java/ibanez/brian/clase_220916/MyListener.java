@@ -15,7 +15,8 @@ public class MyListener implements DialogInterface.OnClickListener {
         if (which == AlertDialog.BUTTON_NEGATIVE)
         {
             Log.d("CLICK EN EL NEGATIVO", "Botton " + which);
-        } else if (which == AlertDialog.BUTTON_POSITIVE)
+        }
+        else if (which == AlertDialog.BUTTON_POSITIVE)
         {
             Log.d("CLICK EN EL POSITIVO", "Botton " + which);
         }
@@ -23,8 +24,6 @@ public class MyListener implements DialogInterface.OnClickListener {
         {
             Log.d("CLICK EN EL NEUTRAL", "Botton " + which);
         }
-
-
 
     }
 
