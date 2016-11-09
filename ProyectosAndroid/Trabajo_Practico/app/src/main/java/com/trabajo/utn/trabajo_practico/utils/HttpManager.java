@@ -1,6 +1,7 @@
 package com.trabajo.utn.trabajo_practico.utils;
 
 import android.net.Uri;
+import android.os.Handler;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -17,18 +18,17 @@ import java.net.URL;
  */
 public class HttpManager {
     public static int response;
+
     public static byte[] getBytesDataByPOST(Uri.Builder params,String url) throws IOException
     {
-        HttpURLConnection conn;
-        conn = crearHttpUrlConn(url);          //Crear conecion con la url recibida por parametros
-        conn.setRequestMethod("POST");         //Settear el metodo a utilizar Get-Post-Put
-        conn.setDoOutput(true);                //Habilitar el output por defecto es true
+        HttpURLConnection conn=crearHttpUrlConn(url); //Crear conecion con la url recibida por parametros
+        conn.setRequestMethod("POST");                //Settear el metodo a utilizar Get-Post-Put
+        conn.setDoOutput(true);                       //Habilitar el output por defecto es true
 
         String query = params.build().getEncodedQuery();
 
         OutputStream os = conn.getOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-
 
         writer.write(query);
         writer.flush();
@@ -45,10 +45,10 @@ public class HttpManager {
     }
 
     public static byte[] getBytesDataByGET(String url) throws IOException {
-        HttpURLConnection conn;
-        conn = crearHttpUrlConn(url);
+        HttpURLConnection conn=crearHttpUrlConn(url);
         conn.setRequestMethod("GET");
         conn.connect();
+
         response = conn.getResponseCode();
         if(response==200) {
             InputStream is = conn.getInputStream();
@@ -69,6 +69,7 @@ public class HttpManager {
         inputStream.close();
         return baos.toByteArray();
     }
+
     private static HttpURLConnection crearHttpUrlConn(String strUrl) {
         URL url = null;
         try {

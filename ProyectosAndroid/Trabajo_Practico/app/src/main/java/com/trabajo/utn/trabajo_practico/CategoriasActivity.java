@@ -65,30 +65,6 @@ public class CategoriasActivity extends AppCompatActivity {
         lst.add(new Categoria("Azul", "El destino mezcla las cartas, y nosotros las jugamos.",R.drawable.avatar));
         lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
         lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
-        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
-        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
-        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
-        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
-        lst.add(new Categoria("Azul", "El destino mezcla las cartas, y nosotros las jugamos.",R.drawable.avatar));
-        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
-        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
-        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
-        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
-        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
-        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
-        lst.add(new Categoria("Azul", "El destino mezcla las cartas, y nosotros las jugamos.",R.drawable.avatar));
-        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
-        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
-        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
-        lst.add(new Categoria("Julian", "Este mundo no le queda mas futuro.", R.drawable.img_m1));
-        lst.add(new Categoria("Jose", "Trabajar muy duro y como un esclavo."));
-        lst.add(new Categoria("Jazmin", "El mejor momento del día es ahora.", R.drawable.img_f1));
-        lst.add(new Categoria("Fabio", "Mi vida es como una casa abandonada."));
         return lst;
     }
 

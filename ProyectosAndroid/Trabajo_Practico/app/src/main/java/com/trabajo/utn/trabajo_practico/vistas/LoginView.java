@@ -1,5 +1,6 @@
 package com.trabajo.utn.trabajo_practico.vistas;
 
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class LoginView {
     private CheckBox chkRemember;
     private LoginModel model;
 
+    public LoginView(){}
     public LoginView(LoginModel model, LoginActivity ma, LoginController controller)
     {
         this.setModel(model);
