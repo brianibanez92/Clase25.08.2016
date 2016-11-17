@@ -70,7 +70,7 @@ public class HttpManager extends Thread
             httpManager.httpURLConnection.setDoOutput(true);
 
             httpManager.handler = handler;
-            httpManager.method = ApiServices.PostLogin;
+            httpManager.method = ApiServices.GetCategories;
 
             return httpManager;
         }
