@@ -18,12 +18,16 @@ public class HttpActivity extends AppCompatActivity {
 
         ImageView img=(ImageView) findViewById(R.id.imgExample);
 
-        HttpManager manager=new HttpManager("http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg");
+        HttpManager manager=new HttpManager("http://cs8.pikabu.ru/post_img/2016/11/03/7/1478171959133290035.gif");
         HttpClientThread client=new HttpClientThread(manager);
         Thread thread=client;
 
         thread.start();
-
+        try {
+            thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         img.setImageBitmap(bmp);
 
     }
