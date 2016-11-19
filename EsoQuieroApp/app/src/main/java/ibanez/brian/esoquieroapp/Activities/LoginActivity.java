@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 
 import ibanez.brian.esoquieroapp.Controllers.LoginController;
 import ibanez.brian.esoquieroapp.Core.Dialog;
-import ibanez.brian.esoquieroapp.Core.Http.LoginJSON;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.LoginModelJSON;
 import ibanez.brian.esoquieroapp.Models.LoginModel;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.LoginView;
@@ -20,13 +20,6 @@ import ibanez.brian.esoquieroapp.Views.LoginView;
 public class LoginActivity extends AppCompatActivity implements Handler.Callback {
 
     private static SharedPreferences prefs;// = getPreferences(Context.MODE_PRIVATE);
-
-    // Atributo privado para que no se pueda modificar.
-    private static String apiKey = "";
-    public static String getApiKey()
-    {
-        return apiKey;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +29,11 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
 
         // Si se recordo el usuario, entonces lanzo el activity de Lista de Categorias.
         prefs = this.getPreferences(Context.MODE_PRIVATE);
-        boolean userRemembered = prefs.getBoolean("userRemembered", false);
-        if (userRemembered)
+        String apiKey = prefs.getString("apiKey", null);
+        if (apiKey != null)
         {
             Intent i = new Intent(this, CategoryListActivity.class);
+            i.putExtra("apiKey", apiKey);
             this.startActivity(i);
             this.finish();
         }
@@ -61,19 +55,23 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
     {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
-        editor.putBoolean("userRemembered", false);
+        editor.putString("apiKey", null);
         editor.commit();
     }
 
     @Override
     public boolean handleMessage(Message message)
     {
-        LoginJSON loginJSON = (LoginJSON) message.obj;
+        LoginModelJSON loginModelJSON = (LoginModelJSON) message.obj;
 
         // Si hay error.
-        if (loginJSON.error)
+        if (loginModelJSON.error)
         {
-            Dialog md = new Dialog("Error", loginJSON.message, "Aceptar", null);
+            // Lanzo un dialog para mostrar el error.
+            String dialogTitle = this.getString(R.string.DialogTitleError);
+            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+            Dialog md = new Dialog(dialogTitle, loginModelJSON.message, dialogBtnAccept, null);
             md.show(getSupportFragmentManager(), null);
         }
         else
@@ -84,15 +82,13 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
             {
                 SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("userRemembered", true);
+                editor.putString("apiKey", loginModelJSON.apiKey);
                 editor.commit();
             }
 
-            // Seteo el token.
-            apiKey = loginJSON.apiKey;
-
             // Boton Ingresar. Lanzo el activity de Lista de Categorias.
             Intent i = new Intent(this, CategoryListActivity.class);
+            i.putExtra("apiKey", loginModelJSON.apiKey);
             this.startActivity(i);
 
             //Finalizo el activity de Login.

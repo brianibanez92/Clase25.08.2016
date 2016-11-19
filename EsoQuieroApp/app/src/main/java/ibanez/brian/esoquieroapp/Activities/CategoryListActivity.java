@@ -1,5 +1,6 @@
 package ibanez.brian.esoquieroapp.Activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -39,7 +40,12 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
         Handler.Callback callback = this;
         Handler handler = new Handler(this);
 
-        HttpManager httpManager = HttpManager.getCategories(handler, LoginActivity.getApiKey());
+        // Obtengo el apiKey pasado desde el login.
+        Intent i = getIntent();
+        Bundle extra = i.getExtras();
+        String apiKey = extra.getString("apiKey");
+
+        HttpManager httpManager = HttpManager.getCategories(handler, apiKey);
         httpManager.start();
 
         CategoryListModel categoryListModel = this.categoryListModel;
@@ -107,10 +113,11 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
     }
 
     @Override
-    public boolean handleMessage(Message message) {
+    public boolean handleMessage(Message message)
+    {
 
-            categoryListModel = (CategoryListModel)message.obj;
-            this.createRecyclerView();
+        categoryListModel = (CategoryListModel)message.obj;
+        this.createRecyclerView();
 
         return false;
     }

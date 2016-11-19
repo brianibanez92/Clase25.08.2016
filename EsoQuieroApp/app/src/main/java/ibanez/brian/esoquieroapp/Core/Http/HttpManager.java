@@ -13,6 +13,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
+
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.CategoryListJSON;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.LoginModelJSON;
 
 /**
  * Created by brian.ibanez on 29/10/2016.
@@ -40,6 +44,7 @@ public class HttpManager extends Thread
             httpManager.httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpManager.httpURLConnection.setRequestMethod("POST");
             httpManager.httpURLConnection.setDoOutput(true);
+            httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
 
             httpManager.handler = handler;
             httpManager.method = ApiServices.PostLogin;
@@ -61,13 +66,15 @@ public class HttpManager extends Thread
 
         try
         {
-            URL url = new URL("http://lkdml.myq-see.com/categorias?id=1");
+            URL url = new URL("http://lkdml.myq-see.com/categorias");
 
             httpManager.httpURLConnection = (HttpURLConnection) url.openConnection();
             httpManager.httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            httpManager.httpURLConnection.setRequestMethod("GET");
             httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", apiKey);
-            httpManager.httpURLConnection.setDoOutput(true);
+            //httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", "c607392e8abdddd075a90f48af8434ab");
+            httpManager.httpURLConnection.setRequestMethod("GET");
+            //httpManager.httpURLConnection.setDoOutput(true);
+            //httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
 
             httpManager.handler = handler;
             httpManager.method = ApiServices.GetCategories;
@@ -93,15 +100,15 @@ public class HttpManager extends Thread
             switch (this.method)
             {
                 case PostLogin:
+
                     result = this.post();
-                    //message.arg1 =
-                    message.obj = new Gson().fromJson(new String(result, "UTF-8"), LoginJSON.class);
+                    message.obj = LoginModelJSON.getModelFromJSON(new String(result, "UTF-8"));
                     break;
 
                 case GetCategories:
                     result = this.get();
                     //message.arg1 =
-                    message.obj = new Gson().fromJson(new String(result, "UTF-8"), CategoryListJSON.class);
+                    message.obj = CategoryListJSON.getModelFromJSON(new String(result, "UTF-8"));
                     break;
 
                 default:

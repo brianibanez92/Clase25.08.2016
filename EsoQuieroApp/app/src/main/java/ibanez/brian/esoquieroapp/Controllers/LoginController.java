@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.View;
 
 import ibanez.brian.esoquieroapp.Activities.LoginActivity;
+import ibanez.brian.esoquieroapp.Core.Dialog;
 import ibanez.brian.esoquieroapp.Core.Http.HttpManager;
 import ibanez.brian.esoquieroapp.Models.LoginModel;
 import ibanez.brian.esoquieroapp.R;
@@ -39,16 +40,40 @@ public class LoginController implements View.OnClickListener
         {
             this.loginView.updateModel();
 
-            // Llamo a la api.
-            Handler.Callback callback = this.loginActivity;
-            Handler handler = new Handler(this.loginActivity);
+            String dialogMsg = null;
+            if (this.loginModel.getUsername().isEmpty())
+            {
+                dialogMsg = this.loginActivity.getString(R.string.LoginValidationUsername);
+            }
 
-            Uri.Builder parameters = new Uri.Builder()
-                    .appendQueryParameter("email", this.loginModel.getUsername())
-                    .appendQueryParameter("password", this.loginModel.getPassword());
+            if (this.loginModel.getPassword().isEmpty())
+            {
+                dialogMsg = dialogMsg + "\n" + this.loginActivity.getString(R.string.LoginValidationPassword);
+            }
 
-            HttpManager threadHttpManager = HttpManager.postLoginHttp(handler, parameters);
-            threadHttpManager.start();
+            // Si la variable no tiene valor es por que no hay errores.
+            if (dialogMsg == null)
+            {
+                // Llamo a la api.
+                Handler.Callback callback = this.loginActivity;
+                Handler handler = new Handler(this.loginActivity);
+
+                Uri.Builder parameters = new Uri.Builder()
+                        .appendQueryParameter("email", this.loginModel.getUsername())
+                        .appendQueryParameter("password", this.loginModel.getPassword());
+
+                HttpManager threadHttpManager = HttpManager.postLoginHttp(handler, parameters);
+                threadHttpManager.start();
+            }
+            else
+            {
+                // Lanzo un dialog para mostrar las validaciones.
+                String dialogTitle = this.loginActivity.getString(R.string.DialogTitleError);
+                String dialogBtnAccept = this.loginActivity.getString(R.string.DialogBtnAccept);
+
+                Dialog md = new Dialog(dialogTitle, dialogMsg, dialogBtnAccept, null);
+                md.show(this.loginActivity.getSupportFragmentManager(), null);
+            }
 
         }
         else if(R.id.btRegister == view.getId())

@@ -21,7 +21,8 @@ public class MiHilo extends Thread {
     private Handler handler;
     private String url;
 
-    public MiHilo(Handler handler, String url){
+    public MiHilo(Handler handler, String url)
+    {
         this.handler = handler;
         this.url = url;
     }

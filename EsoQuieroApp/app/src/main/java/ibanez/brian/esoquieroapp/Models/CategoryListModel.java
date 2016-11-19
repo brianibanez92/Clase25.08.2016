@@ -37,37 +37,4 @@ public class CategoryListModel {
         this.categories = categories;
     }
 
-    public static CategoryListModel getCategoryListModelFromJSON(String jsonCategories) throws JSONException
-    {
-        CategoryListModel categoryListModel = new CategoryListModel();
-        JSONObject jsonObj = new JSONObject(jsonCategories);
-        JSONArray personas = jsonObj.getJSONArray("categorias");
-
-        for (int i=0; i<personas.length(); i++)
-        {
-            JSONObject c = personas.getJSONObject(i);
-            int id = c.getInt("id");
-            String categoryName = c.getString("titulo");
-            String description = c.getString("desc");
-            Date createdDate = null;
-            //"url_foto": null
-
-            try
-            {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-                String dateInString = c.getString("createdAt");
-                createdDate = formatter.parse(dateInString);
-
-            } catch (ParseException e)
-            {
-                e.printStackTrace();
-            }
-
-            categoryListModel.categories.add(new CategoryModel(id, categoryName, description, false, createdDate));
-
-        }
-
-        return categoryListModel;
-    }
-
 }

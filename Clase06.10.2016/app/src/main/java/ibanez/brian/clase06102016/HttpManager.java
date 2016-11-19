@@ -26,6 +26,7 @@ public class HttpManager {
 
         HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
         httpURLConnection.setRequestMethod("GET");
+        httpURLConnection.setRequestProperty("AUTHORIZATION", "c607392e8abdddd075a90f48af8434ab");
 
         try{
             httpURLConnection.connect();

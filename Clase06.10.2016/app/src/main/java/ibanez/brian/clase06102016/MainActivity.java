@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         Handler.Callback callback = this;
         Handler handler = new Handler(this);
 
-        miHilo = new MiHilo(handler, "http://192.168.2.36:8080/personas.json");
+        miHilo = new MiHilo(handler, "http://lkdml.myq-see.com/categorias");
         miHilo.start();
 
         //miHilo2 = new MiHilo(handler, "https://image.freepik.com/foto-gratis/hrc-tigre-siberiano-2-jpg_21253111.jpg");

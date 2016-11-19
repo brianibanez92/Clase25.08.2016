@@ -11,7 +11,8 @@ import ibanez.brian.esoquieroapp.Models.CategoryModel;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.CategoryView;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity
+{
 
     private int itemPosition;
 
@@ -32,8 +33,8 @@ public class CategoryActivity extends AppCompatActivity {
         // Si hay informacion es por que se selecciono un item de la grilla.
         Intent i = getIntent();
         Bundle extra = i.getExtras();
-        if (extra != null) {
-
+        if (extra != null)
+        {
             categoryModel = new CategoryModel();
             categoryModel.setCategoryName(extra.getString("categoryName"));
             categoryModel.setDescription(extra.getString("description"));

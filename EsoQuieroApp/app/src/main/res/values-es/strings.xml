@@ -25,4 +25,10 @@
     <string name="etRegisterPassword">Ingresa una clave</string>
     <string name="etRegisterRepeatPassword">Reingresa la clave</string>
     <string name="btRegisterRegisterMe">Registrarme</string>
+
+    <string name="DialogTitleError">Error</string>
+    <string name="DialogBtnAccept">Aceptar</string>
+    <string name="DialogBtnCancel">Cancelar</string>
+    <string name="LoginValidationUsername">Debe ingresar un usuario</string>
+    <string name="LoginValidationPassword">Debe ingresar una contraseña</string>
 </resources>
