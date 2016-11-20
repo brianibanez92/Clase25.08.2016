@@ -1,17 +1,12 @@
 package utn.com.ar.httpexamplejpg.clases;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 import utn.com.ar.httpexamplejpg.HttpActivity;
-import utn.com.ar.httpexamplejpg.Mensaje;
 import utn.com.ar.httpexamplejpg.model.Credencial;
-
-import static utn.com.ar.httpexamplejpg.clases.TipoPost.*;
 
 /**
  * Created by julian.moreno on 11/19/2016.

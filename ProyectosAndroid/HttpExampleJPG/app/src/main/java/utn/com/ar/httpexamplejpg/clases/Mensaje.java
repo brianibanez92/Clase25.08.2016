@@ -1,4 +1,4 @@
-package utn.com.ar.httpexamplejpg;
+package utn.com.ar.httpexamplejpg.clases;
 
 import org.json.JSONException;
 import org.json.JSONObject;

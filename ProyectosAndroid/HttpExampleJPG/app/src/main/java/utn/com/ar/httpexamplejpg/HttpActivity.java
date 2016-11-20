@@ -11,6 +11,7 @@ import utn.com.ar.httpexamplejpg.clases.HttpClientThreadGET;
 import utn.com.ar.httpexamplejpg.clases.HttpClientThreadPOST;
 import utn.com.ar.httpexamplejpg.clases.HttpGET;
 import utn.com.ar.httpexamplejpg.clases.HttpPOST;
+import utn.com.ar.httpexamplejpg.clases.Mensaje;
 import utn.com.ar.httpexamplejpg.clases.TipoPost;
 import utn.com.ar.httpexamplejpg.model.Credencial;
 
@@ -26,6 +27,7 @@ public class HttpActivity extends AppCompatActivity {
         this.cargarImagen();
         this.cargarCredencial();
         this.darAltaUsuario();
+        //this.cargarCategoria();
     }
 
     private void darAltaUsuario() {
@@ -41,7 +43,7 @@ public class HttpActivity extends AppCompatActivity {
         HttpClientThreadPOST alta=new HttpClientThreadPOST(post,TipoPost.usuario);
         try {
             alta.start();
-            alta.sleep(3000);
+            alta.sleep(2000);
             txt.setText("Error al dar de alta:"+mensaje.isError());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -59,7 +61,7 @@ public class HttpActivity extends AppCompatActivity {
 
         get.start();
         try {
-            get.sleep(700);
+            get.sleep(2000);
             txt.setText(credencial.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -72,7 +74,7 @@ public class HttpActivity extends AppCompatActivity {
 
         get.start();
         try {
-            get.sleep(700);
+            get.sleep(2000);
             img.setImageBitmap(bmp);
         } catch (InterruptedException e) {
             e.printStackTrace();
