@@ -1,12 +1,17 @@
 package utn.com.ar.httpexamplejpg.clases;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 import utn.com.ar.httpexamplejpg.HttpActivity;
+import utn.com.ar.httpexamplejpg.Mensaje;
 import utn.com.ar.httpexamplejpg.model.Credencial;
+
+import static utn.com.ar.httpexamplejpg.clases.TipoPost.*;
 
 /**
  * Created by julian.moreno on 11/19/2016.
@@ -14,9 +19,11 @@ import utn.com.ar.httpexamplejpg.model.Credencial;
 
 public class HttpClientThreadPOST extends Thread {
     private HttpPOST httpPOST;
+    private TipoPost tipo;
 
-    public HttpClientThreadPOST(HttpPOST auxHttpPOST){
+    public HttpClientThreadPOST(HttpPOST auxHttpPOST,TipoPost tipo){
         httpPOST=auxHttpPOST;
+        this.tipo=tipo;
     }
 
     @Override
@@ -24,8 +31,14 @@ public class HttpClientThreadPOST extends Thread {
         try {
             byte[] bytes=httpPOST.getBytesDataByPOST();
             JSONObject json=new JSONObject(new String(bytes,"UTF-8"));
-            HttpActivity.credencial=new Credencial(json);
-
+            switch (tipo){
+                case usuario:
+                    HttpActivity.mensaje=new Mensaje(json);
+                    break;
+                case credencial:
+                    HttpActivity.credencial=new Credencial(json);
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

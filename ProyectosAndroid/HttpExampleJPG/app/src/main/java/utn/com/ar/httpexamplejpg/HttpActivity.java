@@ -11,10 +11,12 @@ import utn.com.ar.httpexamplejpg.clases.HttpClientThreadGET;
 import utn.com.ar.httpexamplejpg.clases.HttpClientThreadPOST;
 import utn.com.ar.httpexamplejpg.clases.HttpGET;
 import utn.com.ar.httpexamplejpg.clases.HttpPOST;
+import utn.com.ar.httpexamplejpg.clases.TipoPost;
 import utn.com.ar.httpexamplejpg.model.Credencial;
 
 public class HttpActivity extends AppCompatActivity {
     public static Bitmap bmp;
+    public static Mensaje mensaje;
     public static Credencial credencial;
 
     @Override
@@ -23,17 +25,37 @@ public class HttpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_http);
         this.cargarImagen();
         this.cargarCredencial();
+        this.darAltaUsuario();
     }
 
+    private void darAltaUsuario() {
+        TextView txt=(TextView)findViewById(R.id.txtRegistro);
+        Uri.Builder params=new Uri.Builder();
+        params.appendQueryParameter("nombre","Julians");
+        params.appendQueryParameter("apellido", "Morenish");
+        params.appendQueryParameter("usuario","J.Moreno");
+        params.appendQueryParameter("email", "Moreno@gmail.com");
+        params.appendQueryParameter("password", "123");
+
+        HttpPOST post=new HttpPOST("http://lkdml.myq-see.com/register",params);
+        HttpClientThreadPOST alta=new HttpClientThreadPOST(post,TipoPost.usuario);
+        try {
+            alta.start();
+            alta.sleep(3000);
+            txt.setText("Error al dar de alta:"+mensaje.isError());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     private void cargarCredencial(){
-        TextView txt=(TextView)findViewById(R.id.txtExample);
+        TextView txt=(TextView)findViewById(R.id.txtCredencial);
 
         Uri.Builder params=new Uri.Builder();
-        params.appendQueryParameter("email","usuario1@gmail.com");
+        params.appendQueryParameter("email","Moreno@gmail.com");
         params.appendQueryParameter("password", "123");
 
         HttpPOST post=new HttpPOST("http://lkdml.myq-see.com/login",params);
-        HttpClientThreadPOST get=new HttpClientThreadPOST(post);
+        HttpClientThreadPOST get=new HttpClientThreadPOST(post,TipoPost.credencial);
 
         get.start();
         try {
@@ -43,7 +65,6 @@ public class HttpActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
     private void cargarImagen(){
         ImageView img=(ImageView) findViewById(R.id.imgExample);
         HttpGET imageHttp=new HttpGET("http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg");

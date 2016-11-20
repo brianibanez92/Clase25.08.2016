@@ -34,13 +34,8 @@ public class HttpPOST extends HttpManager{
         writer.flush();
         writer.close();
         os.close();
-        int response = conn.getResponseCode();
-        if(response==200) {
-            InputStream is = conn.getInputStream();
-            return readFully(is);
-        }
-        else
-            throw new IOException();
+        InputStream is = conn.getInputStream();
+        return readFully(is);
     }
 
     public Uri.Builder getPostParams() {

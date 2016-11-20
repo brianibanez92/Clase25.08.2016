@@ -28,13 +28,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="..........Ejemplo_Texto.........."
+            android:text="....Nuevo Registro.........."
             android:layout_weight="0.50" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtExample"
+            android:id="@+id/txtRegistro"
             android:layout_weight="0.50" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="..........Objeto.........."
+            android:layout_weight="0.50" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCredencial"
+            android:layout_weight="0.50" />
     </LinearLayout>
 </LinearLayout>
