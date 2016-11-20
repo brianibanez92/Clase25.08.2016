@@ -11,17 +11,17 @@ import utn.com.ar.httpexamplejpg.HttpActivity;
  * Created by julian.moreno on 11/19/2016.
  */
 
-public class HttpClientThread extends Thread {
-    private HttpManager httpManager;
+public class HttpClientThreadGET extends Thread {
+    private HttpGET httpGET;
 
-    public HttpClientThread(HttpManager manager){
-        httpManager=manager;
+    public HttpClientThreadGET(HttpGET auxHttpGET){
+        httpGET=auxHttpGET;
     }
 
     @Override
     public void run(){
         try {
-            byte[] data=httpManager.getBytesDataByGET();
+            byte[] data=httpGET.getBytesDataByGET();
             Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
             HttpActivity.bmp=bmp;
         } catch (IOException e) {
