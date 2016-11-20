@@ -1,21 +1,38 @@
 package utn.com.ar.httpexamplejpg.model;
 
+import android.util.JsonReader;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * Created by julian.moreno on 11/19/2016.
  */
 
 public class Credencial {
-    private String error;
+    private boolean error;
     private String name;
     private String email;
     private String apiKey;
     private String createdAt;
 
-    public String getError() {
+    public Credencial(){
+        super();
+    }
+
+    public Credencial(JSONObject json){
+        this();
+        this.convertJsonToCredencial(json);
+    }
+    public boolean getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(boolean error) {
         this.error = error;
     }
 
@@ -54,5 +71,16 @@ public class Credencial {
     @Override
     public String toString(){
         return "Credencial[Name:"+name+" ,Email:"+email+", ApiKey:"+apiKey+" ,CreatedAt:"+createdAt+"]";
+    }
+    private void convertJsonToCredencial(JSONObject json) {
+        try {
+            error=json.getBoolean("error");
+            name=json.getString("name");
+            email=json.getString("email");
+            apiKey=json.getString("apiKey");
+            createdAt=json.getString("createdAt");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -11,10 +11,12 @@ import utn.com.ar.httpexamplejpg.clases.HttpClientThreadGET;
 import utn.com.ar.httpexamplejpg.clases.HttpClientThreadPOST;
 import utn.com.ar.httpexamplejpg.clases.HttpGET;
 import utn.com.ar.httpexamplejpg.clases.HttpPOST;
+import utn.com.ar.httpexamplejpg.model.Credencial;
 
 public class HttpActivity extends AppCompatActivity {
     public static Bitmap bmp;
-    public static String txtPost;
+    public static Credencial credencial;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,16 +27,18 @@ public class HttpActivity extends AppCompatActivity {
 
     private void cargarCredencial(){
         TextView txt=(TextView)findViewById(R.id.txtExample);
+
         Uri.Builder params=new Uri.Builder();
         params.appendQueryParameter("email","usuario1@gmail.com");
         params.appendQueryParameter("password", "123");
+
         HttpPOST post=new HttpPOST("http://lkdml.myq-see.com/login",params);
-        HttpClientThreadPOST getTxt=new HttpClientThreadPOST(post);
-        Thread threadTXT=getTxt;
-        threadTXT.start();
+        HttpClientThreadPOST get=new HttpClientThreadPOST(post);
+
+        get.start();
         try {
-            threadTXT.sleep(700);
-            txt.setText(txtPost);
+            get.sleep(700);
+            txt.setText(credencial.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -42,13 +46,12 @@ public class HttpActivity extends AppCompatActivity {
 
     private void cargarImagen(){
         ImageView img=(ImageView) findViewById(R.id.imgExample);
-        HttpGET get=new HttpGET("http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg");
-        HttpClientThreadGET getImage=new HttpClientThreadGET(get);
+        HttpGET imageHttp=new HttpGET("http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg");
+        HttpClientThreadGET get=new HttpClientThreadGET(imageHttp);
 
-        Thread threadImg=getImage;
-        threadImg.start();
+        get.start();
         try {
-            threadImg.sleep(700);
+            get.sleep(700);
             img.setImageBitmap(bmp);
         } catch (InterruptedException e) {
             e.printStackTrace();
