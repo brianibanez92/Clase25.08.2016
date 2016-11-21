@@ -54,21 +54,7 @@ public class LoginController implements View.OnClickListener  {
             Utils.getLayout(v,RegistroActivity.class);
         }
         if(R.id.btnLogin==v.getId()) {
-            Uri.Builder params = new Uri.Builder();
-            params.appendQueryParameter("email","usuario1@gmail.com");
-            params.appendQueryParameter("password", "123");
-            try {
-
-                // Llamo a la api.
-                Handler handler = new Handler(this.loginActivity);
-                Message message = new Message();
-                byte[] result = HttpManager.getBytesDataByPOST(params,"http://lkdml.myq-see.com/login");
-
-                message.obj=new Gson().fromJson(new String(result, "UTF-8"), Usuario.class);
-                handler.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Utils.getLayout(v,CategoriasActivity.class);
         }
     }
 }
