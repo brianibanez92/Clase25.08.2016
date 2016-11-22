@@ -1,6 +1,9 @@
 package com.trabajo.utn.trabajo_practico.utils.hilos.categorias;
 
-import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
+import android.annotation.TargetApi;
+import android.os.Build;
+
+import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
 
 /**
@@ -9,10 +12,11 @@ import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
 
 public class HiloCategoria extends Thread{
 
-    public HiloCategoria(Categoria c,CategoriasView holder,int position){
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public HiloCategoria(CategoriaModel c, CategoriasView holder, int position){
         holder.getTvNombre().setText(c.getNombre());
         holder.getTvDescripcion().setText(c.getDescripcion());
-        holder.getIvFoto().setImageResource(c.getIdFoto());
+        holder.getIvFoto().setBackground(c.getFoto());
         holder.setIndex(position);
     }
 }

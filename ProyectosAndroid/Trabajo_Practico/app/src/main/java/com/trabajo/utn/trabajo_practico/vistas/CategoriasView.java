@@ -69,14 +69,12 @@ public class CategoriasView extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-            //Log.d("CategoriasController","Index: "+this.getIndex());
         Context context=v.getContext();
         Intent i=new Intent(context, CategoriaActivity.class);
 
         i.putExtra("txtName",this.getTvNombre().getText());
         i.putExtra("txtDescripcion",this.getTvDescripcion().getText());
         i.putExtra("idFoto",this.getIvFoto().getId());
-        Log.d(""+this.getIvFoto().toString(),"Categoria");
         context.startActivity(i);
     }
 }

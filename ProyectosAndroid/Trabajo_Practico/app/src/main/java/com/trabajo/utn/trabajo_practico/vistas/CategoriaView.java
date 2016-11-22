@@ -1,22 +1,13 @@
 package com.trabajo.utn.trabajo_practico.vistas;
 
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.trabajo.utn.trabajo_practico.CategoriaActivity;
-import com.trabajo.utn.trabajo_practico.LoginActivity;
 import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.controladores.CategoriaController;
-import com.trabajo.utn.trabajo_practico.controladores.LoginController;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
-import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
-import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
 
 
 /**

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.trabajo.utn.trabajo_practico.controladores.CategoriaController;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
@@ -31,7 +33,6 @@ public class CategoriaActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data) {
-        Log.d("", "");
         if (requestCode == CategoriaController.CAMARA) {
             if (resultCode == Activity.RESULT_OK) {
                 controller.setImage();

@@ -1,12 +1,14 @@
 package com.trabajo.utn.trabajo_practico.modelos;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by julian.moreno on 9/22/2016.
  */
 public class CategoriaModel {
     private String nombre;
     private String descripcion;
-    private int idFoto;
+    private Drawable foto;
 
     public CategoriaModel(){
         super();
@@ -16,9 +18,9 @@ public class CategoriaModel {
         this.nombre=nombre;
         this.descripcion=descripcion;
     }
-    public CategoriaModel(String nombre,String descripcion,int idFoto) {
+    public CategoriaModel(String nombre,String descripcion,Drawable fotoAux) {
         this(nombre,descripcion);
-        this.idFoto=idFoto;
+        this.setFoto(fotoAux);
     }
 
 
@@ -38,11 +40,11 @@ public class CategoriaModel {
         this.descripcion = descripcion;
     }
 
-    public int getIdFoto() {
-        return idFoto;
+    public Drawable getFoto() {
+        return foto;
     }
 
-    public void setIdFoto(int idFoto) {
-        this.idFoto = idFoto;
+    public void setFoto(Drawable foto) {
+        this.foto = foto;
     }
 }
