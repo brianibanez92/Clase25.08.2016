@@ -1,23 +1,15 @@
 package com.trabajo.utn.trabajo_practico.controladores;
 
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.trabajo.utn.trabajo_practico.CategoriasActivity;
 import com.trabajo.utn.trabajo_practico.LoginActivity;
 import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.RegistroActivity;
 import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
-import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Usuario;
-import com.trabajo.utn.trabajo_practico.utils.HttpManager;
 import com.trabajo.utn.trabajo_practico.utils.Utils;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
-
-import java.io.IOException;
 
 
 /**

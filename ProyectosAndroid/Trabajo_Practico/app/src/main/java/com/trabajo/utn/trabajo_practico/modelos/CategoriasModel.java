@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.trabajo.utn.trabajo_practico.R;
-import com.trabajo.utn.trabajo_practico.controladores.CategoriasController;
 import com.trabajo.utn.trabajo_practico.modelos.clases_pojo.Categoria;
-import com.trabajo.utn.trabajo_practico.utils.categorias.HiloCategoria;
+import com.trabajo.utn.trabajo_practico.utils.hilos.categorias.HiloCategoria;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
 
 import java.util.List;
