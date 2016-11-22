@@ -26,10 +26,8 @@ import java.io.File;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
-import static android.R.attr.path;
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
-import static com.trabajo.utn.trabajo_practico.CategoriasActivity.lst;
 
 /**
  * Created by julian.moreno on 9/22/2016.
@@ -67,8 +65,9 @@ public class CategoriaController implements View.OnClickListener{
             if(descripcion.trim().equals("")) {
                 view.getTxtDescripcion().setError("required!");
             }
-            lst.add(new CategoriaModel(nombre,descripcion,drawable));
+
             Utils.getLayout(v, CategoriasActivity.class);
+            activity.finish();
         }
     }
 

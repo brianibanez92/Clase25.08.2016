@@ -21,7 +21,9 @@ import java.util.List;
 //Activity encargada de mostrar las categorias
 public class CategoriasActivity extends AppCompatActivity {
     RecyclerView rv;
-    public static List<CategoriaModel> lst;
+    private List<CategoriaModel> lst;
+    private CategoriasModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
         lst = new ArrayList<CategoriaModel>();
         rv=(RecyclerView)findViewById(R.id.rvCategorias);
-        CategoriasModel model=new CategoriasModel(lst);
+        model=new CategoriasModel(lst);
         rv.setAdapter(model);
         RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
@@ -56,5 +58,9 @@ public class CategoriasActivity extends AppCompatActivity {
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addCategoria(CategoriaModel model){
+        this.model.getCategorias().add(model);
     }
 }

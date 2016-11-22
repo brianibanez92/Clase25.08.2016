@@ -19,7 +19,7 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
     private List<CategoriaModel> categorias;
 
     public CategoriasModel(List<CategoriaModel> categorias) {
-        this.categorias = categorias;
+        this.categorias=categorias;
     }
 
     @Override
@@ -31,13 +31,18 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
 
     @Override
     public void onBindViewHolder(CategoriasView holder, int position) {
-        CategoriaModel c=categorias.get(position);
+        CategoriaModel c= getCategorias().get(position);
         HiloCategoria hilo=new HiloCategoria(c,holder,position);
         hilo.start();
     }
 
     @Override
     public int getItemCount() {
-        return categorias.size();
+        return getCategorias().size();
+    }
+
+
+    public List<CategoriaModel> getCategorias() {
+        return categorias;
     }
 }
