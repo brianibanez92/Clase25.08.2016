@@ -2,6 +2,7 @@ package com.trabajo.utn.trabajo_practico;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,18 +21,20 @@ import java.util.List;
  */
 //Activity encargada de mostrar las categorias
 public class CategoriasActivity extends AppCompatActivity {
-    RecyclerView rv;
-    private List<CategoriaModel> lst;
-    private CategoriasModel model;
+    private static RecyclerView rv;
+    private static CategoriasModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categorias_main);
 
-        lst = new ArrayList<CategoriaModel>();
+        // Agrego el boton back.
+        ActionBar myActionBar = getSupportActionBar();
+        myActionBar.setDisplayHomeAsUpEnabled(true);
+
         rv=(RecyclerView)findViewById(R.id.rvCategorias);
-        model=new CategoriasModel(lst);
+        model=new CategoriasModel();
         rv.setAdapter(model);
         RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
@@ -60,7 +63,8 @@ public class CategoriasActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addCategoria(CategoriaModel model){
-        this.model.getCategorias().add(model);
+    public static void addCategoria(CategoriaModel cat){
+        model.addCategoria(cat);
+        model.notifyItemInserted(model.getCategorias().size()-1);
     }
 }

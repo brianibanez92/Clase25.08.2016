@@ -9,6 +9,7 @@ import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.utils.hilos.categorias.HiloCategoria;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +19,8 @@ import java.util.List;
 public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
     private List<CategoriaModel> categorias;
 
-    public CategoriasModel(List<CategoriaModel> categorias) {
-        this.categorias=categorias;
+    public CategoriasModel() {
+        categorias=new ArrayList<>();
     }
 
     @Override
@@ -44,5 +45,9 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
 
     public List<CategoriaModel> getCategorias() {
         return categorias;
+    }
+
+    public void addCategoria(CategoriaModel categoria){
+        categorias.add(categoria);
     }
 }

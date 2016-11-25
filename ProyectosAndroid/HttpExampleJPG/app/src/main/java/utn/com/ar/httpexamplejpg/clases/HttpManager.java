@@ -29,6 +29,7 @@ public class HttpManager {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
+
             return urlConnection;
         } catch (MalformedURLException e) {
             e.printStackTrace();

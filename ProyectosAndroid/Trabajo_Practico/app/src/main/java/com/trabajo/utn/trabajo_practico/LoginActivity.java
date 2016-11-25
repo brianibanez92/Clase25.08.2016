@@ -12,22 +12,18 @@ import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.utils.Utils;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
 
-public class LoginActivity extends AppCompatActivity  implements Handler.Callback{
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
         LoginModel model=new LoginModel();
         LoginController controller=new LoginController(model,this);
         LoginView view=new LoginView(model,this,controller);
         controller.setView(view);
     }
 
-    @Override
-    public boolean handleMessage(Message message) {
-        Intent i = new Intent(this, CategoriasActivity.class);
-        this.startActivity(i);
-        return false;
-    }
+
 }

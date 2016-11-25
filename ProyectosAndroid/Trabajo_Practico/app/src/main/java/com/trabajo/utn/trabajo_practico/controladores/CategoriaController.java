@@ -65,8 +65,7 @@ public class CategoriaController implements View.OnClickListener{
             if(descripcion.trim().equals("")) {
                 view.getTxtDescripcion().setError("required!");
             }
-
-            Utils.getLayout(v, CategoriasActivity.class);
+            CategoriasActivity.addCategoria(new CategoriaModel(nombre,descripcion,drawable));
             activity.finish();
         }
     }

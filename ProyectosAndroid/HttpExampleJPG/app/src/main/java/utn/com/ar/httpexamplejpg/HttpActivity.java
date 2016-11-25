@@ -27,7 +27,7 @@ public class HttpActivity extends AppCompatActivity {
         this.cargarImagen();
         this.cargarCredencial();
         this.darAltaUsuario();
-        //this.cargarCategoria();
+        this.cargarCategoria();
     }
 
     private void darAltaUsuario() {
