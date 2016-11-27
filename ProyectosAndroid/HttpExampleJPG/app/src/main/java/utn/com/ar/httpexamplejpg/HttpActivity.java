@@ -24,10 +24,28 @@ public class HttpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_http);
-        this.cargarImagen();
+        //this.cargarImagen();
         this.cargarCredencial();
-        this.darAltaUsuario();
-        this.cargarCategoria();
+        //this.darAltaUsuario();
+        //this.cargarCategoria();
+    }
+    //87a31bba514e17335a2dc383568d200a
+    private void cargarCategoria() {
+        TextView txt=(TextView)findViewById(R.id.txtRegistro);
+        Uri.Builder params=new Uri.Builder();
+        params.appendQueryParameter("titulo","Mundo");
+        params.appendQueryParameter("descripcion", "Morenish");
+        params.appendQueryParameter("url_foto","categorias/hola.jpg");
+
+        HttpPOST post=new HttpPOST("http://lkdml.myq-see.com/categorias",params,"87a31bba514e17335a2dc383568d200a");
+        HttpClientThreadPOST alta=new HttpClientThreadPOST(post,TipoPost.categoria);
+        try {
+            alta.start();
+            alta.sleep(2000);
+            txt.setText("Error al dar de alta:"+mensaje.isError());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void darAltaUsuario() {

@@ -33,6 +33,9 @@ public class HttpClientThreadPOST extends Thread {
                 case credencial:
                     HttpActivity.credencial=new Credencial(json);
                     break;
+                case categoria:
+                    HttpActivity.mensaje=new Mensaje(json);
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();

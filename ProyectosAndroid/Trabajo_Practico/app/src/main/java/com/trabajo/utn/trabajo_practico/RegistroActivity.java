@@ -12,7 +12,8 @@ public class RegistroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        ActionBar myActionBar = getSupportActionBar();
+        myActionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

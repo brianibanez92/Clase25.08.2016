@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.trabajo.utn.trabajo_practico.R;
-import com.trabajo.utn.trabajo_practico.utils.hilos.categorias.HiloCategoria;
+import com.trabajo.utn.trabajo_practico.utils.hilos.HiloCategoria;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
 
 import java.util.ArrayList;
