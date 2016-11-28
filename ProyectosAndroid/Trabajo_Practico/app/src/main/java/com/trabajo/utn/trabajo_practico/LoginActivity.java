@@ -1,7 +1,13 @@
 package com.trabajo.utn.trabajo_practico;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 
 import com.trabajo.utn.trabajo_practico.controladores.LoginController;
@@ -9,24 +15,62 @@ import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.modelos.clases.Credencial;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
 
-public class LoginActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+
+public class LoginActivity extends AppCompatActivity implements Handler.Callback{
     private Credencial credencial;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        LoginModel model=new LoginModel();
-        LoginController controller=new LoginController(model,this);
-        LoginView view=new LoginView(model,this,controller);
+        EditText txt1=(EditText)this.findViewById(R.id.txtUser);
+        EditText txt2=(EditText)this.findViewById(R.id.txtPassword);
+        txt1.setText("Moreno@gmail.com");
+        txt2.setText("123");
+
+        LoginModel model = new LoginModel();
+        LoginController controller = new LoginController(model, this);
+        LoginView view = new LoginView(model, this, controller);
         controller.setView(view);
     }
 
-    public Credencial getCredencial() {
-        return credencial;
+    @Override
+    public boolean handleMessage(Message message) {
+
+        JSONObject json= null;
+        try {
+            json = new JSONObject(new String((byte[])message.obj,"UTF-8"));
+            this.credencial=new Credencial(json);
+            showEstadoLogin(this,this.credencial);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    public void setCredencial(Credencial credencial) {
-        this.credencial = credencial;
+    private void showEstadoLogin(final LoginActivity activity, final Credencial credencial){
+        String mensaje=credencial.isError()?credencial.getMessage():"Bienvenido: "+credencial.getName();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(mensaje)
+                .setCancelable(false)
+                .setNeutralButton("Aceptar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if(!credencial.isError()) {
+                                    Intent i=new Intent(activity, CategoriasActivity.class);
+                                    i.putExtra("apiKey",credencial.getApiKey());
+                                    activity.startActivity(i);
+                                }
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

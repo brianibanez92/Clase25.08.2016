@@ -1,11 +1,14 @@
 package com.trabajo.utn.trabajo_practico;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,28 +32,38 @@ public class CategoriasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categorias_main);
 
-        // Agrego el boton back.
-        ActionBar myActionBar = getSupportActionBar();
-        myActionBar.setDisplayHomeAsUpEnabled(true);
+        Bundle extras = getIntent().getExtras();
+        final String apiKey = extras.getString("apiKey");
 
-        rv=(RecyclerView)findViewById(R.id.rvCategorias);
-        model=new CategoriasModel();
-        rv.setAdapter(model);
-        RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
-        rv.setLayoutManager(manager);
+        if(apiKey==null){
+            Log.d("USUARIO","USUARIO NO LOGEADO");
+            Intent i=new Intent(this, LoginActivity.class);
+            this.startActivity(i);
+            this.finish();
+        }else{
+            ActionBar myActionBar = getSupportActionBar();
+            myActionBar.setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utils.getLayout(rv,CategoriaActivity.class);
-            }
-        });
+            rv=(RecyclerView)findViewById(R.id.rvCategorias);
+            model=new CategoriasModel();
+            rv.setAdapter(model);
+            RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
+            rv.setLayoutManager(manager);
 
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context=view.getContext();
+                    Intent i=new Intent(context, CategoriaActivity.class);
+                    i.putExtra("apiKey",apiKey);
+                    context.startActivity(i);
+                }
+            });
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -62,6 +75,7 @@ public class CategoriasActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public static void addCategoria(CategoriaModel cat){
         model.addCategoria(cat);

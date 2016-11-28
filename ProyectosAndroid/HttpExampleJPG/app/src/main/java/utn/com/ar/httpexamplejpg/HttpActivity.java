@@ -1,7 +1,10 @@
 package utn.com.ar.httpexamplejpg;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -20,29 +23,40 @@ public class HttpActivity extends AppCompatActivity {
     public static Mensaje mensaje;
     public static Credencial credencial;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_http);
-        //this.cargarImagen();
-        this.cargarCredencial();
+        ImageView img=(ImageView) findViewById(R.id.imgExample);
+        ImageView img2=(ImageView) findViewById(R.id.imgExample2);
+
+        String res=img.getBackground().toString();
+
+
+
+
+       // this.cargarImagen();
+        //this.cargarCredencial();
         //this.darAltaUsuario();
         //this.cargarCategoria();
     }
     //87a31bba514e17335a2dc383568d200a
     private void cargarCategoria() {
         TextView txt=(TextView)findViewById(R.id.txtRegistro);
+        ImageView img=(ImageView) findViewById(R.id.imgExample);
+
         Uri.Builder params=new Uri.Builder();
-        params.appendQueryParameter("titulo","Mundo");
-        params.appendQueryParameter("descripcion", "Morenish");
-        params.appendQueryParameter("url_foto","categorias/hola.jpg");
+        params.appendQueryParameter("titulo","Cabezales");
+        params.appendQueryParameter("descripcion", "Pepe");
+        params.appendQueryParameter("url_foto",img.getBackground().toString());
 
         HttpPOST post=new HttpPOST("http://lkdml.myq-see.com/categorias",params,"87a31bba514e17335a2dc383568d200a");
         HttpClientThreadPOST alta=new HttpClientThreadPOST(post,TipoPost.categoria);
         try {
             alta.start();
             alta.sleep(2000);
-            txt.setText("Error al dar de alta:"+mensaje.isError());
+//            txt.setText("Error al dar de alta:"+mensaje.isError());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

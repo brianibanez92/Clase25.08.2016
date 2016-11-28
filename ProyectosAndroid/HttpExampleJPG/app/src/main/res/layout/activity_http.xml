@@ -19,7 +19,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imgExample"
-            android:layout_weight="0.50"/>
+            android:layout_weight="0.50"
+            android:background="@mipmap/ic_launcher"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgExample2"
+            android:layout_weight="0.50" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"

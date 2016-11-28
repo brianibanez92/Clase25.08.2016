@@ -3,6 +3,7 @@ package com.trabajo.utn.trabajo_practico.utils.http;
 import android.net.Uri;
 
 import com.trabajo.utn.trabajo_practico.utils.enumerados.Metodo;
+import com.trabajo.utn.trabajo_practico.utils.enumerados.URLS;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,17 +25,21 @@ public class HttpManager {
     private Metodo metodo;
 
     //Constructores
-    public HttpManager(Metodo metodo,String strUrl) {
+    public HttpManager(Metodo metodo, URLS url) {
         super();
         this.metodo=metodo;
-        conn=crearHttpUrlConn(strUrl);
+        conn=crearHttpUrlConn(url);
     }
-    public HttpManager(Metodo metodo,String strUrl,Uri.Builder params){
-        this(metodo,strUrl);
+    public HttpManager(Metodo metodo, URLS url,String authorizacionKey) {
+        this(metodo,url);
+        this.authorizacionKey=authorizacionKey;
+    }
+    public HttpManager(Metodo metodo,URLS url,Uri.Builder params){
+        this(metodo,url);
         this.params=params;
     }
-    public HttpManager(Metodo metodo,String strUrl,Uri.Builder params,String authorizacionKey){
-        this(metodo,strUrl,params);
+    public HttpManager(Metodo metodo,URLS url,Uri.Builder params,String authorizacionKey){
+        this(metodo,url,params);
         this.authorizacionKey=authorizacionKey;
     }
 
@@ -45,11 +50,11 @@ public class HttpManager {
         conn.setRequestMethod(this.metodo.toString());
 
         if(authorizacionKey!=null){
-            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn.setRequestProperty("AUTHORIZATION",this.authorizacionKey);
         }
 
         if(params!=null){
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn.setDoOutput(true); //significa que la aplicación tiene la intención de escribir datos en la conexión de URL
             String query = params.build().getEncodedQuery(); //parsear los paramentros a lenguaje protocolo HTTP
 
@@ -68,10 +73,10 @@ public class HttpManager {
         return response;
     }
     //Metodos Privados
-    private HttpURLConnection crearHttpUrlConn(String strUrl) {
+    private HttpURLConnection crearHttpUrlConn(URLS urlAux) {
         HttpURLConnection urlConnection=null;
         try {
-            URL url = new URL(strUrl);
+            URL url = new URL(urlAux.getURL());
             urlConnection= (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);

@@ -1,0 +1,45 @@
+[
+    {
+        "outputFile": "C:\\Users\\julian.moreno\\Desktop\\Facultad U.T.N\\LaboratorioV\\ProyectosAndroid\\guia3base-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 53,
+                    "endOffset": 104
+                },
+                "from": {
+                    "file": "C:\\Users\\julian.moreno\\Desktop\\Facultad U.T.N\\LaboratorioV\\ProyectosAndroid\\guia3base-master\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 110,
+                        "endColumn": 53,
+                        "endOffset": 159
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 109,
+                    "endColumn": 54,
+                    "endOffset": 159
+                },
+                "from": {
+                    "file": "C:\\Users\\julian.moreno\\Desktop\\Facultad U.T.N\\LaboratorioV\\ProyectosAndroid\\guia3base-master\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 54,
+                        "endOffset": 105
+                    }
+                }
+            }
+        ]
+    }
+]

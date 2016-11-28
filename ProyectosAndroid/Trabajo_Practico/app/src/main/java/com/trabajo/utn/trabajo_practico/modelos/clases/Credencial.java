@@ -1,5 +1,7 @@
 package com.trabajo.utn.trabajo_practico.modelos.clases;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,11 +10,12 @@ import org.json.JSONObject;
  */
 
 public class Credencial {
-    private boolean error;
+    private boolean error=false;
     private String name;
     private String email;
     private String apiKey;
     private String createdAt;
+    private String message;
 
     public Credencial(){super();}
 
@@ -22,11 +25,14 @@ public class Credencial {
     }
     private void convertJsonToCredencial(JSONObject json) {
         try {
-            error=json.getBoolean("error");
+            setError(json.getBoolean("error"));
+            if(error){
+                message=json.getString("message");
+            }else{
             name=json.getString("name");
             email=json.getString("email");
             apiKey=json.getString("apiKey");
-            createdAt=json.getString("createdAt");
+            createdAt=json.getString("createdAt");}
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,5 +73,13 @@ public class Credencial {
     }
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
