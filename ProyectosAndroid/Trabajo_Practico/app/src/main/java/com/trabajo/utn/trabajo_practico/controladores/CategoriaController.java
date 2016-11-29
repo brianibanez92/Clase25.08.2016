@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,10 @@ import com.trabajo.utn.trabajo_practico.CategoriaActivity;
 import com.trabajo.utn.trabajo_practico.CategoriasActivity;
 import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
+import com.trabajo.utn.trabajo_practico.utils.enumerados.Metodo;
+import com.trabajo.utn.trabajo_practico.utils.enumerados.URLS;
+import com.trabajo.utn.trabajo_practico.utils.hilos.HiloHttp;
+import com.trabajo.utn.trabajo_practico.utils.http.HttpManager;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriaView;
 import java.io.File;
 
@@ -49,13 +54,21 @@ public class CategoriaController implements View.OnClickListener{
             }
         }
         if(v.getId()==R.id.btnCrearCategoria){
-            String nombre=view.getTxtNombre().getText().toString();
-            String descripcion=view.getTxtDescripcion().getText().toString();
+            if(validarCampos(v)){
+                String nombre=view.getTxtNombre().getText().toString();
+                String descripcion=view.getTxtDescripcion().getText().toString();
 
-            if(nombre.trim().equals("")) {view.getTxtNombre().setError("required!");}
-            if(descripcion.trim().equals("")) {view.getTxtDescripcion().setError("required!");}
-            CategoriasActivity.addCategoria(new CategoriaModel(nombre,descripcion,mPath));
-            activity.finish();
+                Uri.Builder params=new Uri.Builder();
+                params.appendQueryParameter("titulo",nombre);
+                params.appendQueryParameter("descripcion", descripcion);
+                params.appendQueryParameter("url_foto",mPath);
+                Log.d("PATH:","path:"+mPath);
+
+                HttpManager manager=new HttpManager(Metodo.POST,URLS.CATEGORIAS,params,activity.getApiKey());
+                Handler handler=new Handler(activity);
+                HiloHttp hilo=new HiloHttp(handler,manager);
+                hilo.start();
+            }
         }
     }
 
@@ -65,7 +78,6 @@ public class CategoriaController implements View.OnClickListener{
         Drawable d = Drawable.createFromPath(f.getAbsolutePath());
         view.getBtnFoto().setBackground(d);
     }
-
     private void openCamera() {
         File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
         boolean isDirectoryCreated = file.exists();
@@ -86,10 +98,18 @@ public class CategoriaController implements View.OnClickListener{
             activity.startActivityForResult(intent, CAMARA);
         }
     }
+    private boolean validarCampos(View v){
+        boolean result=true;
+        String nombre=view.getTxtNombre().getText().toString();
+        String descripcion=view.getTxtDescripcion().getText().toString();
+
+        if(nombre.trim().equals("")) {view.getTxtNombre().setError("required!"); result=false;}
+        if(descripcion.trim().equals("")) {view.getTxtDescripcion().setError("required!"); result=false;}
+        return result;
+    }
     public CategoriaView getView() {
         return view;
     }
-
     public void setView(CategoriaView view) {
         this.view = view;
     }

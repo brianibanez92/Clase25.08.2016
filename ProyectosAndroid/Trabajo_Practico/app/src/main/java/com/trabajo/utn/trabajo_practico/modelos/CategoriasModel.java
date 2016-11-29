@@ -26,12 +26,6 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
     private List<CategoriaModel> categorias;
 
     public CategoriasModel() {categorias=new ArrayList<>();}
-    public CategoriasModel(JSONArray lista){
-        CategoriaModel cat;
-        for(int i=0;i<lista.length();i++){
-            //cat=new CategoriaModel()
-        }
-    }
 
     @Override
     public CategoriasView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,7 +38,6 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
     public void onBindViewHolder(CategoriasView holder, int position) {
         CategoriaModel c= getCategorias().get(position);
         HiloCategoria hilo=new HiloCategoria(c,holder,position);
-
         hilo.start();
     }
 

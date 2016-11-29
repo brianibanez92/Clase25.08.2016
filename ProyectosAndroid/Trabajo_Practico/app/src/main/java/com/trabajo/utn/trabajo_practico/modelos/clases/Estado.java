@@ -19,7 +19,17 @@ public class Estado {
     public Estado(JSONObject json){
         try {
             setError(json.getBoolean("error"));
-            if(getError()){
+            if(getError() ){
+                setMensaje(json.getString("message"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public Estado(JSONObject json,boolean guardarMensaje){
+        try {
+            setError(json.getBoolean("error"));
+            if(guardarMensaje){
                 setMensaje(json.getString("message"));
             }
         } catch (JSONException e) {

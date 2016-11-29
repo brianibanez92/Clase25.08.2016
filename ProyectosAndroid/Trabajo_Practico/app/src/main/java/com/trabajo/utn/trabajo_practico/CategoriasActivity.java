@@ -75,6 +75,7 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
                     Intent i=new Intent(context, CategoriaActivity.class);
                     i.putExtra("apiKey",apiKey);
                     context.startActivity(i);
+                    CategoriasActivity.this.finish();
                 }
             });
             obtenerCategorias();
@@ -111,7 +112,7 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
         }
         return false;
     }
-    private void obtenerCategorias(){
+    public void obtenerCategorias(){
         HttpManager manager=new HttpManager(Metodo.GET, URLS.CATEGORIAS,apiKey);
         Handler handler=new Handler(this);
         HiloHttp hilo=new HiloHttp(handler,manager);

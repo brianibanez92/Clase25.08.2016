@@ -49,7 +49,7 @@ public class HttpActivity extends AppCompatActivity {
         Uri.Builder params=new Uri.Builder();
         params.appendQueryParameter("titulo","Cabezales");
         params.appendQueryParameter("descripcion", "Pepe");
-        params.appendQueryParameter("url_foto",img.getBackground().toString());
+        params.appendQueryParameter("url_foto",null);
 
         HttpPOST post=new HttpPOST("http://lkdml.myq-see.com/categorias",params,"87a31bba514e17335a2dc383568d200a");
         HttpClientThreadPOST alta=new HttpClientThreadPOST(post,TipoPost.categoria);

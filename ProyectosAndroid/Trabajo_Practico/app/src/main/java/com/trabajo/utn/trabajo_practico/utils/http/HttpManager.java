@@ -48,8 +48,8 @@ public class HttpManager {
 
     //Metodos Publicos
     public byte[] getBytesData() throws IOException {
-        byte[] response=new byte[1024];
         InputStream is;
+        byte[] response=new byte[4096];
         conn.setRequestMethod(this.metodo.toString());
 
         if(authorizacionKey!=null){
@@ -72,7 +72,6 @@ public class HttpManager {
         responseCode=conn.getResponseCode();
         is = conn.getInputStream();
         is.read(response);
-
         return response;
     }
     //Metodos Privados
