@@ -1,6 +1,7 @@
 package ibanez.brian.esoquieroapp.Activities;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -8,11 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import ibanez.brian.esoquieroapp.Core.CategoryListAdapter;
 import ibanez.brian.esoquieroapp.Controllers.CategoryListController;
+import ibanez.brian.esoquieroapp.Core.Dialog;
 import ibanez.brian.esoquieroapp.Core.Http.HttpManager;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ItemCategoryJSON;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
+import ibanez.brian.esoquieroapp.Core.SwipeHelper;
 import ibanez.brian.esoquieroapp.Models.CategoryListModel;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
 import ibanez.brian.esoquieroapp.R;
@@ -20,14 +27,12 @@ import ibanez.brian.esoquieroapp.Views.CategoryListView;
 
 public class CategoryListActivity extends AppCompatActivity implements Handler.Callback
 {
-
-    private static CategoryListModel categoryListModel = new CategoryListModel();
+    private static CategoryListModel categoryListModel;
     private static CategoryListAdapter categoryListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
 
@@ -40,15 +45,14 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
         Handler.Callback callback = this;
         Handler handler = new Handler(this);
 
-        // Obtengo el apiKey pasado desde el login.
-        Intent i = getIntent();
-        Bundle extra = i.getExtras();
-        String apiKey = extra.getString("apiKey");
+        // Obtengo el apiKey.
+        SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
+        String apiKey = prefs.getString("apiKey", null);
 
         HttpManager httpManager = HttpManager.getCategories(handler, apiKey);
         httpManager.start();
 
-        CategoryListModel categoryListModel = this.categoryListModel;
+        categoryListModel = new CategoryListModel();
         CategoryListController categoryListController = new CategoryListController(categoryListModel, this);
         CategoryListView categoryListView = new CategoryListView(categoryListModel, categoryListController, this);
         categoryListController.setCategoryListView(categoryListView);
@@ -69,11 +73,15 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
         if (android.R.id.home == item.getItemId() || R.id.menuCategory == item.getItemId())
         {
             this.finish();
-
         }
         else if (R.id.menuLogOut == item.getItemId())
         {
-            LoginActivity.logOut();
+            SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.putBoolean("rememberme", false);
+            editor.commit();
+
             this.finish();
         }
         else
@@ -90,7 +98,6 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
     // Agrega un item a la lista.
     public static void addCategory(CategoryModel categoryModel, int position)
     {
-
         if(position != -1)
         {
             // Modificacion
@@ -109,26 +116,43 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
             // Notifica al Adapter que se agrego un item.
             categoryListAdapter.notifyItemInserted(categoryListModel.getCategories().size() - 1);
         }
-
     }
 
     @Override
     public boolean handleMessage(Message message)
     {
+        GETCategoryList modelJSON = (GETCategoryList) message.obj;
 
-        categoryListModel = (CategoryListModel)message.obj;
-        this.createRecyclerView();
+        // Si hay error.
+        if (modelJSON.error)
+        {
+            // Lanzo un dialog para mostrar el error.
+            String dialogTitle = this.getString(R.string.DialogTitleError);
+            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+            Dialog md = new Dialog(dialogTitle, modelJSON.message, dialogBtnAccept, null);
+            md.show(getSupportFragmentManager(), null);
+        }
+        else
+        {
+            // Agrego los items al model.
+            for (ItemCategoryJSON item : modelJSON.categorias)
+            {
+                categoryListModel.getCategories().add(new CategoryModel(item.id, item.categoryName, item.description, false, item.createdAt));
+            }
+
+            // Creo el RecyclerView.
+            RecyclerView rv = (RecyclerView) findViewById(R.id.rvCategoryList);
+            categoryListAdapter = new CategoryListAdapter(categoryListModel, this);
+            rv.setAdapter(categoryListAdapter);
+            RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+            rv.setLayoutManager(manager);
+
+            ItemTouchHelper.Callback callback = new SwipeHelper(categoryListAdapter);
+            ItemTouchHelper helper = new ItemTouchHelper(callback);
+            helper.attachToRecyclerView(rv);
+        }
 
         return false;
     }
-
-    public void createRecyclerView()
-    {
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rvCategoryList);
-        categoryListAdapter = new CategoryListAdapter(categoryListModel, this);
-        rv.setAdapter(categoryListAdapter);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-        rv.setLayoutManager(manager);
-    }
-
 }

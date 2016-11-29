@@ -40,19 +40,19 @@ public class LoginController implements View.OnClickListener
         {
             this.loginView.updateModel();
 
-            String dialogMsg = null;
+            String dialogMsg = "";
             if (this.loginModel.getUsername().isEmpty())
             {
-                dialogMsg = this.loginActivity.getString(R.string.LoginValidationUsername);
+                dialogMsg = this.loginActivity.getString(R.string.LoginValidationUsername) + "\n";
             }
 
             if (this.loginModel.getPassword().isEmpty())
             {
-                dialogMsg = dialogMsg + "\n" + this.loginActivity.getString(R.string.LoginValidationPassword);
+                dialogMsg = dialogMsg + this.loginActivity.getString(R.string.LoginValidationPassword);
             }
 
             // Si la variable no tiene valor es por que no hay errores.
-            if (dialogMsg == null)
+            if (dialogMsg.isEmpty())
             {
                 // Llamo a la api.
                 Handler.Callback callback = this.loginActivity;
@@ -62,7 +62,7 @@ public class LoginController implements View.OnClickListener
                         .appendQueryParameter("email", this.loginModel.getUsername())
                         .appendQueryParameter("password", this.loginModel.getPassword());
 
-                HttpManager threadHttpManager = HttpManager.postLoginHttp(handler, parameters);
+                HttpManager threadHttpManager = HttpManager.postLogin(handler, parameters);
                 threadHttpManager.start();
             }
             else

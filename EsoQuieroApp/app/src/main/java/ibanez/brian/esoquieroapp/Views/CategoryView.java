@@ -12,7 +12,8 @@ import ibanez.brian.esoquieroapp.R;
 /**
  * Created by brian.ibanez on 28/09/2016.
  */
-public class CategoryView {
+public class CategoryView
+{
 
     private CategoryModel categoryModel;
     private CategoryController categoryController;
@@ -48,7 +49,8 @@ public class CategoryView {
         return etNewCategoryName;
     }
 
-    public void setEtNewCategoryName(EditText etNewCategoryName) {
+    public void setEtNewCategoryName(EditText etNewCategoryName)
+    {
         this.etNewCategoryName = etNewCategoryName;
     }
 
@@ -64,8 +66,16 @@ public class CategoryView {
         return cbNewCategoryFavorite;
     }
 
-    public void setCbNewCategoryFavorite(CheckBox cbNewCategoryFavorite) {
+    public void setCbNewCategoryFavorite(CheckBox cbNewCategoryFavorite)
+    {
         this.cbNewCategoryFavorite = cbNewCategoryFavorite;
+    }
+
+    public void updateModel()
+    {
+        this.categoryModel.setCategoryName(this.etNewCategoryName.getText().toString());
+        this.categoryModel.setDescription(this.etNewCategoryDescription.getText().toString());
+        this.categoryModel.setFavorite(this.cbNewCategoryFavorite.isChecked());
     }
 
 }

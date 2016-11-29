@@ -1,5 +1,6 @@
 package ibanez.brian.esoquieroapp.Views;
 
+import android.support.design.widget.FloatingActionButton;
 import android.widget.Button;
 
 import ibanez.brian.esoquieroapp.Activities.CategoryListActivity;
@@ -12,13 +13,12 @@ import ibanez.brian.esoquieroapp.R;
  */
 public class CategoryListView {
 
-    private Button btAddCategory;
+    private FloatingActionButton btAddCategory;
 
-    public CategoryListView(CategoryListModel categoryListModel, CategoryListController categoryListController, CategoryListActivity categoryListActivity) {
-
-        this.btAddCategory = (Button) categoryListActivity.findViewById(R.id.btAddCategory);
+    public CategoryListView(CategoryListModel categoryListModel, CategoryListController categoryListController, CategoryListActivity categoryListActivity)
+    {
+        this.btAddCategory = (FloatingActionButton) categoryListActivity.findViewById(R.id.btAddCategory);
         this.btAddCategory.setOnClickListener(categoryListController);
-
     }
 
 }

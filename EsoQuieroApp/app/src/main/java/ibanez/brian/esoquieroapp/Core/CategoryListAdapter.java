@@ -44,6 +44,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHo
         holder.getTvCategoryName().setText(item.getCategoryName());
         holder.getTvDescription().setText(item.getDescription());
         holder.getCbFavorite().setChecked(item.getFavorite());
+
+        // Seteo enabled al  checkboxpara que no se pueda checkear/descheckear.
+        holder.getCbFavorite().setEnabled(false);
+
+        holder.setCategoryId(item.getId());
         holder.setIndex(position);
     }
 
@@ -53,4 +58,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHo
         return this.categoryListModel.getCategories().size();
     }
 
+    /**
+     * Elimina el item de la lista.
+     * @param position: posicion del item.
+     */
+    public void removeItem(int position)
+    {
+        this.categoryListModel.getCategories().remove(position);
+        this.notifyItemRemoved(position);
+
+    }
 }

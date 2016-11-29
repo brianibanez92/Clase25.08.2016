@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 
-import com.google.gson.Gson;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,10 +12,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.CategoryListJSON;
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.LoginModelJSON;
+import ibanez.brian.esoquieroapp.Activities.CategoryActivity;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTCategory;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTLogin;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.PUTCategory;
 
 /**
  * Created by brian.ibanez on 29/10/2016.
@@ -32,7 +33,65 @@ public class HttpManager extends Thread
     {
     }
 
-    public static HttpManager postLoginHttp(Handler handler, Uri.Builder parameters)
+    public static HttpManager putCategory(Handler handler,String apiKey, Uri.Builder parameters)
+    {
+        HttpManager httpManager = new HttpManager();
+
+        try
+        {
+            URL url = new URL("http://lkdml.myq-see.com/categorias");
+
+            httpManager.httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpManager.httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", apiKey);
+            httpManager.httpURLConnection.setRequestMethod("PUT");
+            httpManager.httpURLConnection.setDoOutput(true);
+            httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
+
+            httpManager.handler = handler;
+            httpManager.method = ApiServices.PutCategory;
+            httpManager.parameters = parameters;
+
+            return httpManager;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static HttpManager postCategory(Handler handler,String apiKey, Uri.Builder parameters)
+    {
+        HttpManager httpManager = new HttpManager();
+
+        try
+        {
+            URL url = new URL("http://lkdml.myq-see.com/categorias");
+
+            httpManager.httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpManager.httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", apiKey);
+            httpManager.httpURLConnection.setRequestMethod("POST");
+            httpManager.httpURLConnection.setDoOutput(true);
+            httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
+
+            httpManager.handler = handler;
+            httpManager.method = ApiServices.PostCategory;
+            httpManager.parameters = parameters;
+
+            return httpManager;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static HttpManager postLogin(Handler handler, Uri.Builder parameters)
     {
         HttpManager httpManager = new HttpManager();
 
@@ -48,7 +107,7 @@ public class HttpManager extends Thread
 
             httpManager.handler = handler;
             httpManager.method = ApiServices.PostLogin;
-            httpManager.parameters= parameters;
+            httpManager.parameters = parameters;
 
             return httpManager;
         }
@@ -74,7 +133,7 @@ public class HttpManager extends Thread
             //httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", "c607392e8abdddd075a90f48af8434ab");
             httpManager.httpURLConnection.setRequestMethod("GET");
             //httpManager.httpURLConnection.setDoOutput(true);
-            //httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
+            httpManager.httpURLConnection.setConnectTimeout(7000); // 7 segundos.
 
             httpManager.handler = handler;
             httpManager.method = ApiServices.GetCategories;
@@ -102,13 +161,24 @@ public class HttpManager extends Thread
                 case PostLogin:
 
                     result = this.post();
-                    message.obj = LoginModelJSON.getModelFromJSON(new String(result, "UTF-8"));
+                    message.obj = POSTLogin.getModelFromJSON(new String(result, "UTF-8"));
                     break;
 
                 case GetCategories:
                     result = this.get();
-                    //message.arg1 =
-                    message.obj = CategoryListJSON.getModelFromJSON(new String(result, "UTF-8"));
+                    message.obj = GETCategoryList.getModelFromJSON(new String(result, "UTF-8"));
+                    break;
+
+                case PostCategory:
+                    result = this.post();
+                    message.arg1 = CategoryActivity.POSTcategory;
+                    message.obj = POSTCategory.getModelFromJSON(new String(result, "UTF-8"));
+                    break;
+
+                case PutCategory:
+                    result = this.post();
+                    message.arg1 = CategoryActivity.PUTcategory;
+                    message.obj = PUTCategory.getModelFromJSON(new String(result, "UTF-8"));
                     break;
 
                 default:
@@ -139,8 +209,9 @@ public class HttpManager extends Thread
             writer.close();
             os.close();
 
+            // Si es de la familia del codigo 200.
             int response = this.httpURLConnection.getResponseCode();
-            if(response == 200) {
+            if(response > 199 && response < 300) {
 
                 InputStream is = this.httpURLConnection.getInputStream();
                 result = getByteArray(is);
@@ -206,6 +277,8 @@ public class HttpManager extends Thread
     public enum ApiServices
     {
         PostLogin,
-        GetCategories
+        GetCategories,
+        PostCategory,
+        PutCategory
     }
 }

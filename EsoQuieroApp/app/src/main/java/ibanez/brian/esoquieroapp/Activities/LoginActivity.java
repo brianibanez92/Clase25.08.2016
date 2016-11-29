@@ -12,14 +12,14 @@ import android.widget.CheckBox;
 
 import ibanez.brian.esoquieroapp.Controllers.LoginController;
 import ibanez.brian.esoquieroapp.Core.Dialog;
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.LoginModelJSON;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTLogin;
 import ibanez.brian.esoquieroapp.Models.LoginModel;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.LoginView;
 
 public class LoginActivity extends AppCompatActivity implements Handler.Callback {
 
-    private static SharedPreferences prefs;// = getPreferences(Context.MODE_PRIVATE);
+    //private static SharedPreferences prefs;// = getPreferences(Context.MODE_PRIVATE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +28,10 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
         setContentView(R.layout.activity_login);
 
         // Si se recordo el usuario, entonces lanzo el activity de Lista de Categorias.
-        prefs = this.getPreferences(Context.MODE_PRIVATE);
-        String apiKey = prefs.getString("apiKey", null);
-        if (apiKey != null)
+        SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
+        if (prefs.getBoolean("rememberme", false))
         {
             Intent i = new Intent(this, CategoryListActivity.class);
-            i.putExtra("apiKey", apiKey);
             this.startActivity(i);
             this.finish();
         }
@@ -51,44 +49,44 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
     /** Cierra la sesión.
      *  Actualiza el valor en shared preferences.
      */
-    public static void logOut()
+    /*public static void logOut()
     {
+        SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
-        editor.putString("apiKey", null);
+        editor.putBoolean("rememberme", false);
         editor.commit();
-    }
+    }*/
 
     @Override
     public boolean handleMessage(Message message)
     {
-        LoginModelJSON loginModelJSON = (LoginModelJSON) message.obj;
+        POSTLogin POSTLogin = (POSTLogin) message.obj;
 
         // Si hay error.
-        if (loginModelJSON.error)
+        if (POSTLogin.error)
         {
             // Lanzo un dialog para mostrar el error.
             String dialogTitle = this.getString(R.string.DialogTitleError);
             String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
 
-            Dialog md = new Dialog(dialogTitle, loginModelJSON.message, dialogBtnAccept, null);
+            Dialog md = new Dialog(dialogTitle, POSTLogin.message, dialogBtnAccept, null);
             md.show(getSupportFragmentManager(), null);
         }
         else
         {
+
+            SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("apiKey", POSTLogin.apiKey);
+
             // Si se tildo "Recordarme" se guardara en Shared Preferences.
             CheckBox cb = (CheckBox) this.findViewById(R.id.cbRememberMe);
-            if (cb.isChecked())
-            {
-                SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("apiKey", loginModelJSON.apiKey);
-                editor.commit();
-            }
+            editor.putBoolean("rememberme", cb.isChecked());
+            editor.commit();
 
             // Boton Ingresar. Lanzo el activity de Lista de Categorias.
             Intent i = new Intent(this, CategoryListActivity.class);
-            i.putExtra("apiKey", loginModelJSON.apiKey);
             this.startActivity(i);
 
             //Finalizo el activity de Login.

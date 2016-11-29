@@ -1,20 +1,35 @@
 package ibanez.brian.esoquieroapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import ibanez.brian.esoquieroapp.Controllers.CategoryController;
+import ibanez.brian.esoquieroapp.Core.CategoryListAdapter;
+import ibanez.brian.esoquieroapp.Core.Dialog;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ItemCategoryJSON;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTCategory;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.PUTCategory;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.CategoryView;
 
-public class CategoryActivity extends AppCompatActivity
+public class CategoryActivity extends AppCompatActivity implements Handler.Callback
 {
 
+    public static final int PUTcategory = 2;
+    public static final int POSTcategory = 1;
     private int itemPosition;
+    private CategoryModel categoryModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,14 +43,14 @@ public class CategoryActivity extends AppCompatActivity
         // Botón back.
         myActionBar.setDisplayHomeAsUpEnabled(true);
 
-        CategoryModel categoryModel;
+        categoryModel = new CategoryModel();
 
-        // Si hay informacion es por que se selecciono un item de la grilla.
+        // Si hay información es por que se selecciono un item de la grilla.
         Intent i = getIntent();
         Bundle extra = i.getExtras();
         if (extra != null)
         {
-            categoryModel = new CategoryModel();
+            categoryModel.setId(extra.getInt("categoryId"));
             categoryModel.setCategoryName(extra.getString("categoryName"));
             categoryModel.setDescription(extra.getString("description"));
             categoryModel.setFavorite(extra.getBoolean("favorite"));
@@ -43,7 +58,6 @@ public class CategoryActivity extends AppCompatActivity
 
         } else
         {
-            categoryModel = new CategoryModel();
             this.itemPosition = -1;
         }
 
@@ -70,7 +84,12 @@ public class CategoryActivity extends AppCompatActivity
         }
         else if (R.id.menuLogOut == item.getItemId())
         {
-            LoginActivity.logOut();
+            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.putBoolean("rememberme", false);
+            editor.commit();
+
             this.finish();
         }
         else
@@ -84,11 +103,59 @@ public class CategoryActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void addCategory(CategoryModel categoryModel)
+    @Override
+    public boolean handleMessage(Message message)
     {
 
-        // Le paso a la activity de lista de Categorias el nuevo item y la posicion en casod e ser actualizacion.
-        CategoryListActivity.addCategory(categoryModel, this.itemPosition);
+        if (message.arg1 == POSTcategory)
+        {
+            POSTCategory modelJSON = (POSTCategory) message.obj;
+
+            // Si hay error.
+            if (modelJSON.error)
+            {
+                this.showError(modelJSON.message);
+            }
+            else
+            {
+                // Seteo el Id que retorno el servidor al model.
+                categoryModel.setId(modelJSON.categoria_id);
+
+                // Le paso la nueva categoria a la activity de listado.
+                CategoryListActivity.addCategory(this.categoryModel, this.itemPosition);
+
+                this.finish();
+            }
+        }
+        else
+        {
+            PUTCategory modelJSON = (PUTCategory) message.obj;
+
+            // Si hay error.
+            if (modelJSON.error)
+            {
+                this.showError(modelJSON.message);
+            }
+            else
+            {
+                // Le paso la nueva categoria a la activity de listado.
+                CategoryListActivity.addCategory(this.categoryModel, this.itemPosition);
+
+                this.finish();
+            }
+        }
+
+        return false;
+    }
+
+    private void showError(String message)
+    {
+        // Lanzo un dialog para mostrar el error.
+        String dialogTitle = this.getString(R.string.DialogTitleError);
+        String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
+        md.show(getSupportFragmentManager(), null);
     }
 
 }

@@ -31,4 +31,7 @@
     <string name="DialogBtnCancel">Cancelar</string>
     <string name="LoginValidationUsername">Debe ingresar un usuario</string>
     <string name="LoginValidationPassword">Debe ingresar una contraseña</string>
+
+    <string name="stringCategoryValidationCategoryName">Debe ingresar una categoria</string>
+    <string name="stringCategoryValidationDescription">Debe ingresar una descripción</string>
 </resources>

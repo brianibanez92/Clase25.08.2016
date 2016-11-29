@@ -1,6 +1,5 @@
 package ibanez.brian.esoquieroapp.Core.Http.ModelsJSON;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,13 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ibanez.brian.esoquieroapp.Models.CategoryListModel;
-import ibanez.brian.esoquieroapp.Models.CategoryModel;
-
 /**
  * Created by brian.ibanez on 03/11/2016.
  */
-public class LoginModelJSON
+public class POSTLogin
 {
     public boolean error;
     public String name;
@@ -23,27 +19,27 @@ public class LoginModelJSON
     public Date createdAt;
     public String message;
 
-    private LoginModelJSON()
+    private POSTLogin()
     {
     }
 
-    public static LoginModelJSON getModelFromJSON(String json) throws JSONException
+    public static POSTLogin getModelFromJSON(String json) throws JSONException
     {
-        LoginModelJSON loginModelJSON = new LoginModelJSON();
+        POSTLogin POSTLogin = new POSTLogin();
         JSONObject jsonObj = new JSONObject(json);
 
-        loginModelJSON.error = jsonObj.getBoolean("error");
+        POSTLogin.error = jsonObj.getBoolean("error");
 
         // Si tiene errores.
-        if (loginModelJSON.error)
+        if (POSTLogin.error)
         {
-            loginModelJSON.message = jsonObj.getString("message");
+            POSTLogin.message = jsonObj.getString("message");
         }
         else
         {
-            loginModelJSON.name = jsonObj.getString("name");
-            loginModelJSON.email = jsonObj.getString("email");
-            loginModelJSON.apiKey = jsonObj.getString("apiKey");
+            POSTLogin.name = jsonObj.getString("name");
+            POSTLogin.email = jsonObj.getString("email");
+            POSTLogin.apiKey = jsonObj.getString("apiKey");
 
             try
             {
@@ -51,7 +47,7 @@ public class LoginModelJSON
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
                 String dateInString = jsonObj.getString("createdAt");
                 createdDate = formatter.parse(dateInString);
-                loginModelJSON.createdAt = createdDate;
+                POSTLogin.createdAt = createdDate;
 
             } catch (ParseException e)
             {
@@ -60,7 +56,7 @@ public class LoginModelJSON
             }
         }
 
-        return loginModelJSON;
+        return POSTLogin;
     }
 
 }

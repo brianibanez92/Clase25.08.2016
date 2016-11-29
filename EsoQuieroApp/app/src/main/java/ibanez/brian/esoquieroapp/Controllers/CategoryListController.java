@@ -18,8 +18,8 @@ public class CategoryListController implements View.OnClickListener {
     private CategoryListView categoryListView;
     private CategoryListActivity categoryListActivity;
 
-    public CategoryListController(CategoryListModel categoryListModel, CategoryListActivity categoryListActivity) {
-
+    public CategoryListController(CategoryListModel categoryListModel, CategoryListActivity categoryListActivity)
+    {
         this.categoryListModel = categoryListModel;
         this.categoryListActivity = categoryListActivity;
     }
@@ -32,11 +32,10 @@ public class CategoryListController implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.btAddCategory) {
-
+        if (view.getId() == R.id.btAddCategory)
+        {
             Intent newCategoryActivity = new Intent(this.categoryListActivity, CategoryActivity.class);
             this.categoryListActivity.startActivity(newCategoryActivity);
-
         }
 
     }
