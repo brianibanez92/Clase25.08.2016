@@ -8,21 +8,16 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import com.trabajo.utn.trabajo_practico.CategoriasActivity;
 import com.trabajo.utn.trabajo_practico.LoginActivity;
 import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.RegistroActivity;
 import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
-import com.trabajo.utn.trabajo_practico.modelos.clases.Credencial;
-import com.trabajo.utn.trabajo_practico.modelos.clases.Statics;
 import com.trabajo.utn.trabajo_practico.utils.Utils;
 import com.trabajo.utn.trabajo_practico.utils.enumerados.Metodo;
 import com.trabajo.utn.trabajo_practico.utils.enumerados.URLS;
 import com.trabajo.utn.trabajo_practico.utils.hilos.HiloHttp;
 import com.trabajo.utn.trabajo_practico.utils.http.HttpManager;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
-
-import static com.trabajo.utn.trabajo_practico.modelos.clases.Statics.credencial;
 
 
 /**

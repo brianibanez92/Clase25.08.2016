@@ -23,12 +23,15 @@ public class HttpManager {
     private HttpURLConnection conn;
     private Uri.Builder params;
     private Metodo metodo;
+    private URLS url;
 
     //Constructores
     public HttpManager(Metodo metodo, URLS url) {
         super();
         this.metodo=metodo;
-        conn=crearHttpUrlConn(url);
+        this.url=url;
+        conn=crearHttpUrlConn();
+
     }
     public HttpManager(Metodo metodo, URLS url,String authorizacionKey) {
         this(metodo,url);
@@ -73,11 +76,11 @@ public class HttpManager {
         return response;
     }
     //Metodos Privados
-    private HttpURLConnection crearHttpUrlConn(URLS urlAux) {
+    private HttpURLConnection crearHttpUrlConn() {
         HttpURLConnection urlConnection=null;
         try {
-            URL url = new URL(urlAux.getURL());
-            urlConnection= (HttpURLConnection) url.openConnection();
+            URL urlAux = new URL(getUrl().getURL());
+            urlConnection= (HttpURLConnection) urlAux.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
         } catch (MalformedURLException e) {
@@ -93,4 +96,11 @@ public class HttpManager {
         return responseCode;
     }
 
+    public URLS getUrl() {
+        return url;
+    }
+
+    public void setUrl(URLS url) {
+        this.url = url;
+    }
 }

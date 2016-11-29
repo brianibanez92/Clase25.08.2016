@@ -15,10 +15,7 @@ import com.trabajo.utn.trabajo_practico.modelos.LoginModel;
 import com.trabajo.utn.trabajo_practico.modelos.clases.Credencial;
 import com.trabajo.utn.trabajo_practico.vistas.LoginView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 
 public class LoginActivity extends AppCompatActivity implements Handler.Callback{
     private Credencial credencial;
@@ -30,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
 
         EditText txt1=(EditText)this.findViewById(R.id.txtUser);
         EditText txt2=(EditText)this.findViewById(R.id.txtPassword);
-        txt1.setText("Moreno@gmail.com");
+        txt1.setText("diablo3@gmail.com");
         txt2.setText("123");
 
         LoginModel model = new LoginModel();
@@ -41,29 +38,21 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
 
     @Override
     public boolean handleMessage(Message message) {
-
-        JSONObject json= null;
-        try {
-            json = new JSONObject(new String((byte[])message.obj,"UTF-8"));
-            this.credencial=new Credencial(json);
-            showEstadoLogin(this,this.credencial);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        JSONObject json= (JSONObject)message.obj;
+        this.credencial=new Credencial(json);
+        showEstadoLogin(this,this.credencial);
         return false;
     }
 
     private void showEstadoLogin(final LoginActivity activity, final Credencial credencial){
-        String mensaje=credencial.isError()?credencial.getMessage():"Bienvenido: "+credencial.getName();
+        String mensaje=credencial.getEstado().getError()?credencial.getEstado().getMensaje():"Bienvenido: "+credencial.getName();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(mensaje)
                 .setCancelable(false)
                 .setNeutralButton("Aceptar",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                if(!credencial.isError()) {
+                                if(!credencial.getEstado().getError()) {
                                     Intent i=new Intent(activity, CategoriasActivity.class);
                                     i.putExtra("apiKey",credencial.getApiKey());
                                     activity.startActivity(i);

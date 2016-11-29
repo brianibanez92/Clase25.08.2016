@@ -1,7 +1,5 @@
 package com.trabajo.utn.trabajo_practico.modelos.clases;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,14 +8,16 @@ import org.json.JSONObject;
  */
 
 public class Credencial {
-    private boolean error=false;
     private String name;
     private String email;
     private String apiKey;
     private String createdAt;
-    private String message;
+    private Estado estado;
 
-    public Credencial(){super();}
+    public Credencial(){
+        super();
+        this.estado=new Estado();
+    }
 
     public Credencial(JSONObject json){
         this();
@@ -25,9 +25,9 @@ public class Credencial {
     }
     private void convertJsonToCredencial(JSONObject json) {
         try {
-            setError(json.getBoolean("error"));
-            if(error){
-                message=json.getString("message");
+            getEstado().setError(json.getBoolean("error"));
+            if(getEstado().getError()){
+                getEstado().setMensaje(json.getString("message"));
             }else{
             name=json.getString("name");
             email=json.getString("email");
@@ -60,13 +60,6 @@ public class Credencial {
         this.apiKey = apiKey;
     }
 
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
 
     public String getCreatedAt() {
         return createdAt;
@@ -75,11 +68,11 @@ public class Credencial {
         this.createdAt = createdAt;
     }
 
-    public String getMessage() {
-        return message;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

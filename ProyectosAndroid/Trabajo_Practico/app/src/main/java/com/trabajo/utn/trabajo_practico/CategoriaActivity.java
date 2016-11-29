@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.trabajo.utn.trabajo_practico.controladores.CategoriaController;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
@@ -23,11 +20,15 @@ import com.trabajo.utn.trabajo_practico.vistas.CategoriaView;
 public class CategoriaActivity extends AppCompatActivity {
     CategoriaController controller;
     CategoriaView view;
+    private String apiKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categoria_agregar);
+
+        Bundle extras = getIntent().getExtras();
+        apiKey=extras.getString("apiKey");
 
         ActionBar myActionBar = getSupportActionBar();
         myActionBar.setDisplayHomeAsUpEnabled(true);
@@ -61,5 +62,9 @@ public class CategoriaActivity extends AppCompatActivity {
                 controller.setImage();
             }
         }
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 }
