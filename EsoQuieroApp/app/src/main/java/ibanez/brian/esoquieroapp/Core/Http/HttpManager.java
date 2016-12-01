@@ -14,10 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import ibanez.brian.esoquieroapp.Activities.CategoryActivity;
+import ibanez.brian.esoquieroapp.Activities.CategoryListActivity;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTCategory;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTLogin;
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.PUTCategory;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ResponseJSON;
 
 /**
  * Created by brian.ibanez on 29/10/2016.
@@ -29,11 +30,73 @@ public class HttpManager extends Thread
     private ApiServices method;
     private Uri.Builder parameters;
 
+    public static final int ErrorHttp = 1;
+
     private HttpManager()
     {
     }
 
-    public static HttpManager putCategory(Handler handler,String apiKey, Uri.Builder parameters)
+
+    public static HttpManager postRegister(Handler handler, Uri.Builder parameters)
+    {
+        HttpManager httpManager = new HttpManager();
+
+        try
+        {
+            URL url = new URL("http://lkdml.myq-see.com/register");
+
+            httpManager.httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpManager.httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            //httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", apiKey);
+            httpManager.httpURLConnection.setRequestMethod("POST");
+            httpManager.httpURLConnection.setDoOutput(true);
+            httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
+
+            httpManager.handler = handler;
+            httpManager.method = ApiServices.PostRegister;
+            httpManager.parameters = parameters;
+
+            return httpManager;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static HttpManager deleteCategory(Handler handler, String apiKey, String categoryId)
+    {
+        HttpManager httpManager = new HttpManager();
+
+        try
+        {
+            URL url = new URL("http://lkdml.myq-see.com/categorias/" + categoryId);
+
+            httpManager.httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpManager.httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", apiKey);
+            httpManager.httpURLConnection.setRequestMethod("DELETE");
+
+            //httpManager.httpURLConnection.setDoOutput(true);
+            httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
+
+            httpManager.handler = handler;
+            httpManager.method = ApiServices.DeleteCategory;
+            //httpManager.parameters = new Uri.Builder();
+
+            return httpManager;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static HttpManager putCategory(Handler handler, String apiKey, Uri.Builder parameters)
     {
         HttpManager httpManager = new HttpManager();
 
@@ -62,7 +125,7 @@ public class HttpManager extends Thread
         return null;
     }
 
-    public static HttpManager postCategory(Handler handler,String apiKey, Uri.Builder parameters)
+    public static HttpManager postCategory(Handler handler, String apiKey, Uri.Builder parameters)
     {
         HttpManager httpManager = new HttpManager();
 
@@ -166,6 +229,7 @@ public class HttpManager extends Thread
 
                 case GetCategories:
                     result = this.get();
+                    message.arg1 = CategoryListActivity.GETcategories;
                     message.obj = GETCategoryList.getModelFromJSON(new String(result, "UTF-8"));
                     break;
 
@@ -178,7 +242,18 @@ public class HttpManager extends Thread
                 case PutCategory:
                     result = this.post();
                     message.arg1 = CategoryActivity.PUTcategory;
-                    message.obj = PUTCategory.getModelFromJSON(new String(result, "UTF-8"));
+                    message.obj = ResponseJSON.getModelFromJSON(new String(result, "UTF-8"));
+                    break;
+
+                case DeleteCategory:
+                    result = this.get();
+                    message.arg1 = CategoryListActivity.DELETEcategory;
+                    message.obj = ResponseJSON.getModelFromJSON(new String(result, "UTF-8"));
+                    break;
+
+                case PostRegister:
+                    result = this.post();
+                    message.obj = ResponseJSON.getModelFromJSON(new String(result, "UTF-8"));
                     break;
 
                 default:
@@ -193,6 +268,10 @@ public class HttpManager extends Thread
         catch (Exception ex)
         {
             ex.printStackTrace();
+
+            // Si ocurrio una excepcion la envio en el handler.
+            message.arg2 = ErrorHttp;
+            this.handler.sendMessage(message);
         }
     }
 
@@ -279,6 +358,8 @@ public class HttpManager extends Thread
         PostLogin,
         GetCategories,
         PostCategory,
-        PutCategory
+        PutCategory,
+        DeleteCategory,
+        PostRegister
     }
 }

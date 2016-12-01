@@ -8,17 +8,13 @@ import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import ibanez.brian.esoquieroapp.Controllers.CategoryController;
-import ibanez.brian.esoquieroapp.Core.CategoryListAdapter;
 import ibanez.brian.esoquieroapp.Core.Dialog;
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ItemCategoryJSON;
+import ibanez.brian.esoquieroapp.Core.Http.HttpManager;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTCategory;
-import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.PUTCategory;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ResponseJSON;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.CategoryView;
@@ -107,6 +103,14 @@ public class CategoryActivity extends AppCompatActivity implements Handler.Callb
     public boolean handleMessage(Message message)
     {
 
+        // Si ocurrio al obtener datos de internet.
+        if (message.arg2 == HttpManager.ErrorHttp)
+        {
+            String errorHttpMessage = this.getString(R.string.ErrorHttpManager);
+            this.showError(errorHttpMessage);
+            return false;
+        }
+
         if (message.arg1 == POSTcategory)
         {
             POSTCategory modelJSON = (POSTCategory) message.obj;
@@ -129,7 +133,7 @@ public class CategoryActivity extends AppCompatActivity implements Handler.Callb
         }
         else
         {
-            PUTCategory modelJSON = (PUTCategory) message.obj;
+            ResponseJSON modelJSON = (ResponseJSON) message.obj;
 
             // Si hay error.
             if (modelJSON.error)

@@ -19,6 +19,7 @@ import ibanez.brian.esoquieroapp.Core.Dialog;
 import ibanez.brian.esoquieroapp.Core.Http.HttpManager;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ItemCategoryJSON;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ResponseJSON;
 import ibanez.brian.esoquieroapp.Core.SwipeHelper;
 import ibanez.brian.esoquieroapp.Models.CategoryListModel;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
@@ -29,6 +30,9 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
 {
     private static CategoryListModel categoryListModel;
     private static CategoryListAdapter categoryListAdapter;
+
+    public static final int GETcategories = 1;
+    public static final int DELETEcategory = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +45,21 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
         myActionBar.setTitle(R.string.CategoryListTitle);
         myActionBar.setDisplayHomeAsUpEnabled(true);
 
+        // Llamo a la api para obtener todas las categorias.
+        this.getCategories();
+
+        categoryListModel = new CategoryListModel();
+        CategoryListController categoryListController = new CategoryListController(categoryListModel, this);
+        CategoryListView categoryListView = new CategoryListView(categoryListModel, categoryListController, this);
+        categoryListController.setCategoryListView(categoryListView);
+
+    }
+
+    /**
+     * Llama a la api para obtener todas las categorias.
+     */
+    private void getCategories()
+    {
         // Implemento la interfaz directamente en mi activity
         Handler.Callback callback = this;
         Handler handler = new Handler(this);
@@ -51,12 +70,6 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
 
         HttpManager httpManager = HttpManager.getCategories(handler, apiKey);
         httpManager.start();
-
-        categoryListModel = new CategoryListModel();
-        CategoryListController categoryListController = new CategoryListController(categoryListModel, this);
-        CategoryListView categoryListView = new CategoryListView(categoryListModel, categoryListController, this);
-        categoryListController.setCategoryListView(categoryListView);
-
     }
 
     @Override
@@ -70,11 +83,11 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Item menu BACK o item menu Categorias.
-        if (android.R.id.home == item.getItemId() || R.id.menuCategory == item.getItemId())
+        /*if (android.R.id.home == item.getItemId() || R.id.menuCategory == item.getItemId())
         {
             this.finish();
-        }
-        else if (R.id.menuLogOut == item.getItemId())
+        }*/
+        if (R.id.menuLogOut == item.getItemId())
         {
             SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
@@ -106,7 +119,8 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
             category.setDescription(categoryModel.getDescription());
             category.setFavorite(categoryModel.getFavorite());
 
-            categoryListAdapter.notifyItemChanged(position);
+            //categoryListAdapter.notifyItemChanged(position);
+            categoryListAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -115,44 +129,87 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
 
             // Notifica al Adapter que se agrego un item.
             categoryListAdapter.notifyItemInserted(categoryListModel.getCategories().size() - 1);
+
+            categoryListAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public boolean handleMessage(Message message)
     {
-        GETCategoryList modelJSON = (GETCategoryList) message.obj;
-
-        // Si hay error.
-        if (modelJSON.error)
+        // Si ocurrio al obtener datos de internet.
+        if (message.arg2 == HttpManager.ErrorHttp)
         {
-            // Lanzo un dialog para mostrar el error.
-            String dialogTitle = this.getString(R.string.DialogTitleError);
-            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+            String errorHttpMessage = this.getString(R.string.ErrorHttpManager);
+            this.showDialog(errorHttpMessage);
 
-            Dialog md = new Dialog(dialogTitle, modelJSON.message, dialogBtnAccept, null);
-            md.show(getSupportFragmentManager(), null);
+            return false;
+        }
+
+        if (message.arg1 == GETcategories)
+        {
+            GETCategoryList modelJSON = (GETCategoryList) message.obj;
+
+            // Si hay error.
+            if (modelJSON.error)
+            {
+                // Lanzo un dialog para mostrar el error.
+                this.showDialog(modelJSON.message);
+            }
+            else
+            {
+                // Agrego los items al model.
+                categoryListModel = new CategoryListModel();
+                for (ItemCategoryJSON item : modelJSON.categorias)
+                {
+                    categoryListModel.getCategories().add(new CategoryModel(item.id, item.categoryName, item.description, false, item.createdAt));
+                }
+
+                // Creo el RecyclerView.
+                RecyclerView rv = (RecyclerView) findViewById(R.id.rvCategoryList);
+                categoryListAdapter = new CategoryListAdapter(categoryListModel, this);
+                rv.setAdapter(categoryListAdapter);
+                RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+                rv.setLayoutManager(manager);
+
+                ItemTouchHelper.Callback callback = new SwipeHelper(categoryListAdapter);
+                ItemTouchHelper helper = new ItemTouchHelper(callback);
+                helper.attachToRecyclerView(rv);
+            }
         }
         else
         {
-            // Agrego los items al model.
-            for (ItemCategoryJSON item : modelJSON.categorias)
+            ResponseJSON modelJSON = (ResponseJSON) message.obj;
+
+            // Si hay error.
+            if (modelJSON.error)
             {
-                categoryListModel.getCategories().add(new CategoryModel(item.id, item.categoryName, item.description, false, item.createdAt));
+                // Lanzo un dialog con el mesanje desde la api.
+                this.showDialog(modelJSON.message);
+
+                // Vuelvo a obtener las categorias.
+                this.getCategories();
+            }
+            else
+            {
+                // Lanzo un dialog confirmando el borrado de la categoria.
+                String deletedOk = this.getString(R.string.MessageDelteCategoryOk);
+                this.showDialog(deletedOk);
             }
 
-            // Creo el RecyclerView.
-            RecyclerView rv = (RecyclerView) findViewById(R.id.rvCategoryList);
-            categoryListAdapter = new CategoryListAdapter(categoryListModel, this);
-            rv.setAdapter(categoryListAdapter);
-            RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-            rv.setLayoutManager(manager);
-
-            ItemTouchHelper.Callback callback = new SwipeHelper(categoryListAdapter);
-            ItemTouchHelper helper = new ItemTouchHelper(callback);
-            helper.attachToRecyclerView(rv);
         }
 
+
         return false;
+    }
+
+    private void showDialog(String message)
+    {
+        // Lanzo un dialog para mostrar el error.
+        String dialogTitle = this.getString(R.string.DialogTitleError);
+        String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
+        md.show(getSupportFragmentManager(), null);
     }
 }

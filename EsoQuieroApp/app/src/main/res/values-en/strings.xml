@@ -3,7 +3,7 @@
     <string name="app_name">ThatIsWhatIWantApp</string>
     <string name="tvLoginWelcome">Welcome to THAT IS WHAT I WANT app...!</string>
     <string name="tvLoginInfo">The application that will help you remember.</string>
-    <string name="etUsername">Enter your username or email</string>
+    <string name="etUsername">Enter your email</string>
     <string name="etPassword">Enter your password</string>
     <string name="cbRememberMe">Remember me</string>
     <string name="btRegister">Registering </string>
@@ -21,7 +21,7 @@
     <string name="tvRegisterSubTitle">Form of register</string>
     <string name="etRegisterName">Name</string>
     <string name="etRegisterSurname">Surname</string>
-    <string name="etRegisterUsername">Insert your user or email</string>
+    <string name="etRegisterUsername">Insert your email</string>
     <string name="etRegisterPassword">Insert your password</string>
     <string name="etRegisterRepeatPassword">Repeat your password</string>
     <string name="btRegisterRegisterMe">Register me</string>
@@ -34,4 +34,16 @@
 
     <string name="stringCategoryValidationCategoryName">You must enter a category</string>
     <string name="stringCategoryValidationDescription">You must enter a description</string>
+
+    <string name="ErrorHttpManager">An error occurred while trying to get data from internet</string>
+
+    <string name="MessageDelteCategoryOk">Category successfully deleted</string>
+
+    <string name="RegisterValidationName">You must enter a name</string>
+    <string name="RegisterValidationSurname">You must enter a surname</string>
+    <string name="RegisterValidationUsername">You must enter a mail</string>
+    <string name="RegisterValidationMailValid">The email entered is not valid</string>
+    <string name="RegisterValidationPassword">You must enter a password</string>
+    <string name="RegisterValidationRepeatPassword">You must repeat a password</string>
+    <string name="RegisterValidationPasswordEquals">The passwords not are equals</string>
 </resources>

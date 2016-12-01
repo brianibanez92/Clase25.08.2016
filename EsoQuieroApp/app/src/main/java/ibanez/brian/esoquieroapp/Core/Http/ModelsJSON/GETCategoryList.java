@@ -12,10 +12,8 @@ import java.util.List;
 /**
  * Created by brian.ibanez on 06/11/2016.
  */
-public class GETCategoryList
+public class GETCategoryList extends ResponseJSON
 {
-    public boolean error;
-    public String message;
     public List<ItemCategoryJSON> categorias;
 
     private GETCategoryList()

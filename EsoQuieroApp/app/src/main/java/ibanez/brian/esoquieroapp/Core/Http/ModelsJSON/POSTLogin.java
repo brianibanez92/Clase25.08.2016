@@ -10,14 +10,12 @@ import java.util.Date;
 /**
  * Created by brian.ibanez on 03/11/2016.
  */
-public class POSTLogin
+public class POSTLogin extends ResponseJSON
 {
-    public boolean error;
     public String name;
     public String email;
     public String apiKey;
     public Date createdAt;
-    public String message;
 
     private POSTLogin()
     {

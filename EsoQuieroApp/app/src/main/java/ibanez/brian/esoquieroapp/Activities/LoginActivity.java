@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 
 import ibanez.brian.esoquieroapp.Controllers.LoginController;
 import ibanez.brian.esoquieroapp.Core.Dialog;
+import ibanez.brian.esoquieroapp.Core.Http.HttpManager;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTLogin;
 import ibanez.brian.esoquieroapp.Models.LoginModel;
 import ibanez.brian.esoquieroapp.R;
@@ -61,21 +62,26 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
     @Override
     public boolean handleMessage(Message message)
     {
+
+        // Si ocurrio al obtener datos de internet.
+        if (message.arg2 == HttpManager.ErrorHttp)
+        {
+            String errorHttpMessage = this.getString(R.string.ErrorHttpManager);
+            this.showError(errorHttpMessage);
+            return false;
+        }
+
         POSTLogin POSTLogin = (POSTLogin) message.obj;
 
         // Si hay error.
         if (POSTLogin.error)
         {
             // Lanzo un dialog para mostrar el error.
-            String dialogTitle = this.getString(R.string.DialogTitleError);
-            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
-
-            Dialog md = new Dialog(dialogTitle, POSTLogin.message, dialogBtnAccept, null);
-            md.show(getSupportFragmentManager(), null);
+            this.showError(POSTLogin.message);
         }
         else
         {
-
+            // Obtengo la apikey.
             SharedPreferences prefs = getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("apiKey", POSTLogin.apiKey);
@@ -95,4 +101,15 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
 
         return false;
     }
+
+    private void showError(String message)
+    {
+        // Lanzo un dialog para mostrar el error.
+        String dialogTitle = this.getString(R.string.DialogTitleError);
+        String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
+        md.show(getSupportFragmentManager(), null);
+    }
+
 }

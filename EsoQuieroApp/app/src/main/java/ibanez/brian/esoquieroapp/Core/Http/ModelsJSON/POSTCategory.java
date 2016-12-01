@@ -10,11 +10,9 @@ import java.util.Date;
 /**
  * Created by brian.ibanez on 06/11/2016.
  */
-public class POSTCategory
+public class POSTCategory extends ResponseJSON
 {
-    public boolean error;
     public int categoria_id;
-    public String message;
 
     private POSTCategory()
     {

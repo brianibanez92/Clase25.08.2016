@@ -3,7 +3,7 @@
     <string name="app_name">EsoQuieroApp</string>
     <string name="tvLoginWelcome">Bienvenidos a ESO QUIERO app...!</string>
     <string name="tvLoginInfo">La aplicación que te ayudará a recordar.</string>
-    <string name="etUsername">Ingresa tu usuario o email</string>
+    <string name="etUsername">Ingresa tu email</string>
     <string name="etPassword">Ingresa tu clave</string>
     <string name="cbRememberMe">Recordarme</string>
     <string name="btRegister">Registrarse</string>
@@ -21,7 +21,7 @@
     <string name="tvRegisterSubTitle">Formulario de registro</string>
     <string name="etRegisterName">Nombre</string>
     <string name="etRegisterSurname">Apellido</string>
-    <string name="etRegisterUsername">Ingresa tu usuario o email</string>
+    <string name="etRegisterUsername">Ingresa tu email</string>
     <string name="etRegisterPassword">Ingresa una clave</string>
     <string name="etRegisterRepeatPassword">Reingresa la clave</string>
     <string name="btRegisterRegisterMe">Registrarme</string>
@@ -34,4 +34,17 @@
 
     <string name="stringCategoryValidationCategoryName">Debe ingresar una categoria</string>
     <string name="stringCategoryValidationDescription">Debe ingresar una descripción</string>
+
+    <string name="ErrorHttpManager">Ocurrio un error mientras se intentaba obtener datos desde internet</string>
+
+    <string name="MessageDelteCategoryOk">La categoria fue eliminada</string>
+
+    <string name="RegisterValidationName">Debe ingresar un nombre</string>
+    <string name="RegisterValidationSurname">Debe ingresar un apellido</string>
+    <string name="RegisterValidationUsername">Debe ingresar un mail</string>
+    <string name="RegisterValidationMailValid">El mail ingresado no es valido</string>
+    <string name="RegisterValidationPassword">Debe ingresar una contraseña</string>
+    <string name="RegisterValidationRepeatPassword">Debe repetir la contraseña</string>
+    <string name="RegisterValidationPasswordEquals">La contraseñas deben ser iguales</string>
+
 </resources>

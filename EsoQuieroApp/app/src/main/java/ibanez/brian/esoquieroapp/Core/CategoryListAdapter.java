@@ -1,11 +1,16 @@
 package ibanez.brian.esoquieroapp.Core;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ibanez.brian.esoquieroapp.Activities.CategoryListActivity;
+import ibanez.brian.esoquieroapp.Core.Http.HttpManager;
 import ibanez.brian.esoquieroapp.Models.CategoryListModel;
 import ibanez.brian.esoquieroapp.Models.CategoryModel;
 import ibanez.brian.esoquieroapp.R;
@@ -64,6 +69,21 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHo
      */
     public void removeItem(int position)
     {
+        // Obtengo el id de la categoria.
+        int categoryId = this.categoryListModel.getCategories().get(position).getId();
+
+        Handler.Callback callback = this.categoryListActivity;
+        Handler handler = new Handler(this.categoryListActivity);
+
+        // Obtengo el apiKey.
+        SharedPreferences prefs = this.categoryListActivity.getSharedPreferences("EsoQuiero", Context.MODE_PRIVATE);
+        String apiKey = prefs.getString("apiKey", null);
+
+        // Elimino la categoria a traves de la API.
+        HttpManager httpManager = HttpManager.deleteCategory(handler, apiKey,  String.valueOf(categoryId));
+        httpManager.start();
+
+        // Elimino la categoria del model y del recycler view.
         this.categoryListModel.getCategories().remove(position);
         this.notifyItemRemoved(position);
 
