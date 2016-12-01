@@ -47,8 +47,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/identification"
-            android:hint="@string/message_identification"
+            android:id="@+id/username"
+            android:hint="@string/message_user"
+            android:layout_weight="0.2"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/email_register"
+            android:hint="@string/message_email"
             android:layout_weight="0.2"/>
         <EditText
             android:layout_width="match_parent"

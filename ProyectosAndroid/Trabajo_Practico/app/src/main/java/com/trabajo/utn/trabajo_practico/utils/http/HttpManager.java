@@ -1,13 +1,19 @@
 package com.trabajo.utn.trabajo_practico.utils.http;
 
 import android.net.Uri;
+import android.util.JsonReader;
+import android.util.Log;
 
+import com.google.api.client.util.IOUtils;
 import com.trabajo.utn.trabajo_practico.utils.enumerados.Metodo;
 import com.trabajo.utn.trabajo_practico.utils.enumerados.URLS;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -49,7 +55,7 @@ public class HttpManager {
     //Metodos Publicos
     public byte[] getBytesData() throws IOException {
         InputStream is;
-        byte[] response=new byte[4096];
+        byte[] response;
         conn.setRequestMethod(this.metodo.toString());
 
         if(authorizacionKey!=null){
@@ -58,7 +64,7 @@ public class HttpManager {
 
         if(params!=null){
             conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-            conn.setDoOutput(true); //significa que la aplicación tiene la intención de escribir datos en la conexión de URL
+            conn.setDoOutput(true);//significa que la aplicación tiene la intención de escribir datos en la conexión de URL
             String query = params.build().getEncodedQuery(); //parsear los paramentros a lenguaje protocolo HTTP
 
             OutputStream os = conn.getOutputStream(); //flujo salida
@@ -71,8 +77,34 @@ public class HttpManager {
         }
         responseCode=conn.getResponseCode();
         is = conn.getInputStream();
-        is.read(response);
+
+        response=convertInputStreamToByteArray(is);
+
+
         return response;
+    }
+    public byte[] convertInputStreamToByteArray(InputStream inputStream)
+    {
+        byte[] bytes= null;
+        try
+        {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte data[] = new byte[1024];
+            int count;
+            while ((count = inputStream.read(data)) != -1)
+            {
+                bos.write(data, 0, count);
+            }
+            bos.flush();
+            bos.close();
+            inputStream.close();
+            bytes = bos.toByteArray();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return bytes;
     }
     //Metodos Privados
     private HttpURLConnection crearHttpUrlConn() {
@@ -80,8 +112,8 @@ public class HttpManager {
         try {
             URL urlAux = new URL(getUrl().getURL());
             urlConnection= (HttpURLConnection) urlAux.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(100000 /* milliseconds */);
+            urlConnection.setConnectTimeout(150000 /* milliseconds */);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

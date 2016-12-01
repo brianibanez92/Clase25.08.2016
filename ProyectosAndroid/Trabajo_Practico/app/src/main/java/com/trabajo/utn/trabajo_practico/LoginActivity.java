@@ -25,11 +25,6 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        EditText txt1=(EditText)this.findViewById(R.id.txtUser);
-        EditText txt2=(EditText)this.findViewById(R.id.txtPassword);
-        txt1.setText("diablo3@gmail.com");
-        txt2.setText("123");
-
         LoginModel model = new LoginModel();
         LoginController controller = new LoginController(model, this);
         LoginView view = new LoginView(model, this, controller);

@@ -3,6 +3,8 @@
     <string name="app_name">ESO QUIERO app.!</string>
     <string name="welcome">Bienvenidos a</string>
     <string name="description">La aplicación que te ayudará a recordar</string>
+    <string name="message_user">Usuario</string>
+    <string name="message_email">Email</string>
     <string name="message_identification">Ingresa tu usuario o email</string>
     <string name="message_password">Ingresa tu clave</string>
     <string name="message_remember">Recordarme</string>

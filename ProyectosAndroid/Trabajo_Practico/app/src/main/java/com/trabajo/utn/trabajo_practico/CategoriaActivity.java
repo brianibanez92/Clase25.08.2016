@@ -95,11 +95,12 @@ public class CategoriaActivity extends AppCompatActivity implements Handler.Call
                                 if (estado.getError()){
                                     view.getTxtNombre().setText("");
                                     view.getTxtDescripcion().setText("");
+                                }else {
+                                    Intent i = new Intent(CategoriaActivity.this, CategoriasActivity.class);
+                                    i.putExtra("apiKey", apiKey);
+                                    CategoriaActivity.this.startActivity(i);
+                                    CategoriaActivity.this.finish();
                                 }
-                                Intent i=new Intent(CategoriaActivity.this, CategoriasActivity.class);
-                                i.putExtra("apiKey",apiKey);
-                                CategoriaActivity.this.startActivity(i);
-                                CategoriaActivity.this.finish();
                             }
                         });
         AlertDialog alert = builder.create();

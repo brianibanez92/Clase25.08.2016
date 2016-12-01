@@ -9,6 +9,7 @@ public enum URLS {
     LOGIN("http://lkdml.myq-see.com/login"),
     REGISTRO("http://lkdml.myq-see.com/register");
 
+
     private final String value;
     private URLS(String value) {
         this.value = value;
