@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements Handler.Callback
         String dialogTitle = this.getString(R.string.DialogTitleError);
         String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
 
-        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
+        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null, null);
         md.show(getSupportFragmentManager(), null);
     }
 

@@ -71,7 +71,7 @@ public class LoginController implements View.OnClickListener
                 String dialogTitle = this.loginActivity.getString(R.string.DialogTitleError);
                 String dialogBtnAccept = this.loginActivity.getString(R.string.DialogBtnAccept);
 
-                Dialog md = new Dialog(dialogTitle, dialogMsg, dialogBtnAccept, null);
+                Dialog md = new Dialog(dialogTitle, dialogMsg, dialogBtnAccept, null, null);
                 md.show(this.loginActivity.getSupportFragmentManager(), null);
             }
 

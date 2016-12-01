@@ -118,6 +118,7 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
             category.setCategoryName(categoryModel.getCategoryName());
             category.setDescription(categoryModel.getDescription());
             category.setFavorite(categoryModel.getFavorite());
+            category.setUri(categoryModel.getUri());
 
             //categoryListAdapter.notifyItemChanged(position);
             categoryListAdapter.notifyDataSetChanged();
@@ -137,11 +138,12 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
     @Override
     public boolean handleMessage(Message message)
     {
-        // Si ocurrio al obtener datos de internet.
+        // Si ocurrio un error al obtener datos de internet.
         if (message.arg2 == HttpManager.ErrorHttp)
         {
             String errorHttpMessage = this.getString(R.string.ErrorHttpManager);
-            this.showDialog(errorHttpMessage);
+            String dialogTitle = this.getString(R.string.DialogTitleError);
+            this.showDialog(errorHttpMessage, dialogTitle);
 
             return false;
         }
@@ -154,7 +156,8 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
             if (modelJSON.error)
             {
                 // Lanzo un dialog para mostrar el error.
-                this.showDialog(modelJSON.message);
+                String dialogTitle = this.getString(R.string.DialogTitleError);
+                this.showDialog(modelJSON.message, dialogTitle);
             }
             else
             {
@@ -162,7 +165,7 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
                 categoryListModel = new CategoryListModel();
                 for (ItemCategoryJSON item : modelJSON.categorias)
                 {
-                    categoryListModel.getCategories().add(new CategoryModel(item.id, item.categoryName, item.description, false, item.createdAt));
+                    categoryListModel.getCategories().add(new CategoryModel(item.id, item.categoryName, item.description, false, item.createdAt, null));
                 }
 
                 // Creo el RecyclerView.
@@ -185,7 +188,8 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
             if (modelJSON.error)
             {
                 // Lanzo un dialog con el mesanje desde la api.
-                this.showDialog(modelJSON.message);
+                String dialogTitle = this.getString(R.string.DialogTitleError);
+                this.showDialog(modelJSON.message, dialogTitle);
 
                 // Vuelvo a obtener las categorias.
                 this.getCategories();
@@ -194,7 +198,8 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
             {
                 // Lanzo un dialog confirmando el borrado de la categoria.
                 String deletedOk = this.getString(R.string.MessageDelteCategoryOk);
-                this.showDialog(deletedOk);
+                String dialogTitle = this.getString(R.string.DialogTitleSucess);
+                this.showDialog(deletedOk, dialogTitle);
             }
 
         }
@@ -203,13 +208,11 @@ public class CategoryListActivity extends AppCompatActivity implements Handler.C
         return false;
     }
 
-    private void showDialog(String message)
+    private void showDialog(String message, String dialogTitle)
     {
-        // Lanzo un dialog para mostrar el error.
-        String dialogTitle = this.getString(R.string.DialogTitleError);
         String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
 
-        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
+        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null, null);
         md.show(getSupportFragmentManager(), null);
     }
 }

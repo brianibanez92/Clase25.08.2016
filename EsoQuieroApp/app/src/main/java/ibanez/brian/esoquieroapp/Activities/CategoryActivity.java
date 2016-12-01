@@ -1,8 +1,11 @@
 package ibanez.brian.esoquieroapp.Activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -40,6 +43,7 @@ public class CategoryActivity extends AppCompatActivity implements Handler.Callb
         myActionBar.setDisplayHomeAsUpEnabled(true);
 
         categoryModel = new CategoryModel();
+        Bitmap bmp = null;
 
         // Si hay información es por que se selecciono un item de la grilla.
         Intent i = getIntent();
@@ -50,9 +54,12 @@ public class CategoryActivity extends AppCompatActivity implements Handler.Callb
             categoryModel.setCategoryName(extra.getString("categoryName"));
             categoryModel.setDescription(extra.getString("description"));
             categoryModel.setFavorite(extra.getBoolean("favorite"));
-            this.itemPosition = extra.getInt("position");
 
-        } else
+            this.itemPosition = extra.getInt("position");
+            bmp = (Bitmap) extra.getParcelable("imagebitmap");
+
+        }
+        else
         {
             this.itemPosition = -1;
         }
@@ -60,6 +67,11 @@ public class CategoryActivity extends AppCompatActivity implements Handler.Callb
         CategoryController categoryController = new CategoryController(categoryModel, this);
         CategoryView categoryView = new CategoryView(categoryModel, categoryController, this);
         categoryController.setCategoryView(categoryView);
+
+        if (bmp != null)
+        {
+            categoryView.setBitMap(bmp);
+        }
 
     }
 
@@ -158,8 +170,20 @@ public class CategoryActivity extends AppCompatActivity implements Handler.Callb
         String dialogTitle = this.getString(R.string.DialogTitleError);
         String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
 
-        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
+        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null, null);
         md.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == CategoryController.CAMARA)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                CategoryController.setImage();
+            }
+        }
     }
 
 }

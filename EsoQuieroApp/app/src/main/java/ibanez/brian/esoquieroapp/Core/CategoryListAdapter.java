@@ -50,6 +50,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListViewHo
         holder.getTvDescription().setText(item.getDescription());
         holder.getCbFavorite().setChecked(item.getFavorite());
 
+        holder.getIvItem().setImageURI(item.getUri());
+
         // Seteo enabled al  checkboxpara que no se pueda checkear/descheckear.
         holder.getCbFavorite().setEnabled(false);
 

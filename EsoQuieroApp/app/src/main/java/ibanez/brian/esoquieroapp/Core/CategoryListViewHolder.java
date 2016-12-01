@@ -1,9 +1,13 @@
 package ibanez.brian.esoquieroapp.Core;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import ibanez.brian.esoquieroapp.Activities.CategoryActivity;
@@ -19,6 +23,17 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder implements V
     private TextView tvCategoryName;
     private TextView tvDescription;
     private CheckBox cbFavorite;
+
+    public ImageView getIvItem() {
+        return ivItem;
+    }
+
+    public void setIvItem(ImageView ivItem) {
+        this.ivItem = ivItem;
+    }
+
+    private ImageView ivItem;
+
     private int index;
     private int categoryId;
 
@@ -28,6 +43,8 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder implements V
         this.tvCategoryName = (TextView)itemView.findViewById(R.id.tvCategoryName);
         this.tvDescription = (TextView)itemView.findViewById(R.id.tvDescription);
         this.cbFavorite = (CheckBox) itemView.findViewById(R.id.cbFavorite);
+        this.ivItem = (ImageView)  itemView.findViewById(R.id.ivItem);
+
         this.categoryListActivity = categoryListActivity;
         itemView.setOnClickListener(this);
     }
@@ -35,12 +52,20 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder implements V
     @Override
     public void onClick(View view)
     {
+        Bundle extras = new Bundle();
         Intent i = new Intent(this.categoryListActivity, CategoryActivity.class);
-        i.putExtra("categoryId", this.categoryId);
-        i.putExtra("categoryName", this.tvCategoryName.getText().toString());
-        i.putExtra("description", this.tvDescription.getText().toString());
-        i.putExtra("favorite", this.cbFavorite.isChecked());
-        i.putExtra("position", this.index);
+
+        extras.putInt("categoryId", this.categoryId);
+        extras.putString("categoryName", this.tvCategoryName.getText().toString());
+        extras.putString("description", this.tvDescription.getText().toString());
+        extras.putBoolean("favorite", this.cbFavorite.isChecked());
+        extras.putInt("position", this.index);
+
+        this.ivItem.buildDrawingCache();
+        Bitmap image = this.ivItem.getDrawingCache();
+        extras.putParcelable("imagebitmap", image);
+
+        i.putExtras(extras);
         this.categoryListActivity.startActivity(i);
     }
 

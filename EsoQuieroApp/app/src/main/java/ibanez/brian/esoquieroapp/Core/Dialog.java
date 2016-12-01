@@ -1,6 +1,7 @@
 package ibanez.brian.esoquieroapp.Core;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 /**
@@ -12,19 +13,26 @@ public class Dialog extends android.support.v4.app.DialogFragment {
     private String message;
     private String positiveButton;
     private String negativeButton;
+    private DialogInterface.OnClickListener ml;
 
-    public Dialog(String title, String message, String positiveButton, String negativeButton)
+    public Dialog(String title, String message, String positiveButton, String negativeButton, DialogInterface.OnClickListener ml)
     {
         this.title = title;
         this.message = message;
         this.positiveButton = positiveButton;
         this.negativeButton = negativeButton;
+        this.ml = ml;
     }
 
     @Override
-    public android.app.Dialog onCreateDialog(Bundle bundle) {
+    public android.app.Dialog onCreateDialog(Bundle bundle)
+    {
 
-        DialogListener ml = new DialogListener();
+        if (this.ml == null)
+        {
+            DialogListener ml = new DialogListener();
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         if (this.title != null)

@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.net.URL;
 
 import ibanez.brian.esoquieroapp.Activities.CategoryActivity;
 import ibanez.brian.esoquieroapp.Activities.CategoryListActivity;
+import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.ItemCategoryJSON;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTCategory;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.GETCategoryList;
 import ibanez.brian.esoquieroapp.Core.Http.ModelsJSON.POSTLogin;
@@ -31,6 +34,11 @@ public class HttpManager extends Thread
     private Uri.Builder parameters;
 
     public static final int ErrorHttp = 1;
+
+    //private static String host = "http://lkdml.myq-see.com";
+    private static String host = "http://localhost:52944";
+
+    private static int idCount = 3;
 
     private HttpManager()
     {
@@ -138,7 +146,7 @@ public class HttpManager extends Thread
             httpManager.httpURLConnection.setRequestProperty("AUTHORIZATION", apiKey);
             httpManager.httpURLConnection.setRequestMethod("POST");
             httpManager.httpURLConnection.setDoOutput(true);
-            httpManager.httpURLConnection.setConnectTimeout(5000); // 5 segundos.
+            httpManager.httpURLConnection.setConnectTimeout(10000); // 5 segundos.
 
             httpManager.handler = handler;
             httpManager.method = ApiServices.PostCategory;
@@ -222,38 +230,73 @@ public class HttpManager extends Thread
             switch (this.method)
             {
                 case PostLogin:
-
                     result = this.post();
                     message.obj = POSTLogin.getModelFromJSON(new String(result, "UTF-8"));
+
+                    /*POSTLogin r = new POSTLogin();
+                    r.apiKey = "c607392e8abdddd075a90f48af8434ab";
+                    r.name = "pepe";
+                    r.email = "pepe@gmail.com";
+                    r.message = "ok";
+                    r.error = false;
+                    message.obj = r;*/
                     break;
 
                 case GetCategories:
                     result = this.get();
                     message.arg1 = CategoryListActivity.GETcategories;
                     message.obj = GETCategoryList.getModelFromJSON(new String(result, "UTF-8"));
+
+                    /*GETCategoryList r1 = new GETCategoryList();
+                    r1.error = false;
+                    r1.message = "ok";
+                    r1.categorias.add(new ItemCategoryJSON(1, "Medicos", "curan gente", null, ""));
+                    r1.categorias.add(new ItemCategoryJSON(2, "Abogados", "defienden gente", null, ""));
+                    message.obj = r1;*/
                     break;
 
                 case PostCategory:
                     result = this.post();
                     message.arg1 = CategoryActivity.POSTcategory;
                     message.obj = POSTCategory.getModelFromJSON(new String(result, "UTF-8"));
+
+                    /*POSTCategory r2 = new POSTCategory();
+                    r2.error = false;
+                    r2.message = "OK";
+                    r2.categoria_id = idCount++;
+                    message.obj = r2;*/
                     break;
 
                 case PutCategory:
                     result = this.post();
                     message.arg1 = CategoryActivity.PUTcategory;
                     message.obj = ResponseJSON.getModelFromJSON(new String(result, "UTF-8"));
+
+                    /*ResponseJSON r4 = new ResponseJSON();
+                    r4.error = false;
+                    r4.message = "OK";
+                    message.obj = r4; */
                     break;
 
                 case DeleteCategory:
                     result = this.get();
                     message.arg1 = CategoryListActivity.DELETEcategory;
                     message.obj = ResponseJSON.getModelFromJSON(new String(result, "UTF-8"));
+
+                    /*ResponseJSON r6 = new ResponseJSON();
+                    r6.error = false;
+                    r6.message = "OK";
+                    message.obj = r6;*/
                     break;
 
                 case PostRegister:
                     result = this.post();
                     message.obj = ResponseJSON.getModelFromJSON(new String(result, "UTF-8"));
+
+                    //ResponseJSON r5 = new ResponseJSON();
+                    //r5.error = false;
+                    //r5.message = "OK";
+                    //message.obj = r5;
                     break;
 
                 default:

@@ -1,7 +1,10 @@
 package ibanez.brian.esoquieroapp.Controllers;
 
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import java.util.regex.Matcher;
@@ -96,7 +99,7 @@ public class RegisterController implements View.OnClickListener
                 String dialogTitle = this.registerActivity.getString(R.string.DialogTitleError);
                 String dialogBtnAccept = this.registerActivity.getString(R.string.DialogBtnAccept);
 
-                Dialog md = new Dialog(dialogTitle, dialogMsg, dialogBtnAccept, null);
+                Dialog md = new Dialog(dialogTitle, dialogMsg, dialogBtnAccept, null, null);
                 md.show(this.registerActivity.getSupportFragmentManager(), null);
             }
         }

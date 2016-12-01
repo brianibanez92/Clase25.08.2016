@@ -26,6 +26,7 @@
     <string name="etRegisterRepeatPassword">Repeat your password</string>
     <string name="btRegisterRegisterMe">Register me</string>
 
+    <string name="DialogTitleSucess">Sucess!!!</string>
     <string name="DialogTitleError">Error</string>
     <string name="DialogBtnAccept">Accept</string>
     <string name="DialogBtnCancel">Cancel</string>

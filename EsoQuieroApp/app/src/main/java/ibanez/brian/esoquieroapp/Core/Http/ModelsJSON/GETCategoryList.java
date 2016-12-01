@@ -16,7 +16,7 @@ public class GETCategoryList extends ResponseJSON
 {
     public List<ItemCategoryJSON> categorias;
 
-    private GETCategoryList()
+    public GETCategoryList()
     {
         this.categorias = new ArrayList<>();
     }

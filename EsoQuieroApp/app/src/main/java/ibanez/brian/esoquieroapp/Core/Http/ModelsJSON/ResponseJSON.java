@@ -11,7 +11,7 @@ public class ResponseJSON
     public boolean error;
     public String message;
 
-    protected ResponseJSON()
+    public ResponseJSON()
     {
     }
 

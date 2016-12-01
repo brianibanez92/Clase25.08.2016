@@ -1,12 +1,15 @@
 package ibanez.brian.esoquieroapp.Activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import ibanez.brian.esoquieroapp.Controllers.RegisterController;
@@ -17,7 +20,7 @@ import ibanez.brian.esoquieroapp.Models.RegisterModel;
 import ibanez.brian.esoquieroapp.R;
 import ibanez.brian.esoquieroapp.Views.RegisterView;
 
-public class RegisterActivity extends AppCompatActivity implements Handler.Callback
+public class RegisterActivity extends AppCompatActivity implements Handler.Callback, DialogInterface.OnClickListener
 {
 
     @Override
@@ -42,19 +45,36 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
         if (message.arg2 == HttpManager.ErrorHttp)
         {
             String errorHttpMessage = this.getString(R.string.ErrorHttpManager);
-            this.showDialog(errorHttpMessage);
+
+            // Lanzo un dialog para mostrar el error.
+            String dialogTitle = this.getString(R.string.DialogTitleError);
+            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+            Dialog md = new Dialog(dialogTitle, errorHttpMessage, dialogBtnAccept, null, null);
+            md.show(getSupportFragmentManager(), null);
+
             return false;
         }
 
         ResponseJSON modelJson = (ResponseJSON) message.obj;
 
-        // Lanzo un dialog para mostrar el error.
-        this.showDialog(modelJson.message);
-
-        // Si hay error.
-        if (!modelJson.error)
+        if (modelJson.error)
         {
-            this.finish();
+            // Lanzo un dialog para mostrar el error.
+            String dialogTitle = this.getString(R.string.DialogTitleError);
+            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+            Dialog md = new Dialog(dialogTitle, modelJson.message, dialogBtnAccept, null, null);
+            md.show(getSupportFragmentManager(), null);
+        }
+        else
+        {
+            // Lanzo un dialog para mostrar el error.jgomez
+            String dialogTitle = this.getString(R.string.DialogTitleSucess);
+            String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
+
+            Dialog md = new Dialog(dialogTitle, modelJson.message, dialogBtnAccept, null, this);
+            md.show(getSupportFragmentManager(), null);
         }
 
         return false;
@@ -62,12 +82,16 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
 
     private void showDialog(String message)
     {
-        // Lanzo un dialog para mostrar el error.
-        String dialogTitle = this.getString(R.string.DialogTitleError);
-        String dialogBtnAccept = this.getString(R.string.DialogBtnAccept);
 
-        Dialog md = new Dialog(dialogTitle, message, dialogBtnAccept, null);
-        md.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which)
+    {
+        if (which == AlertDialog.BUTTON_POSITIVE)
+        {
+            this.finish();
+        }
     }
 
 }

@@ -17,7 +17,7 @@ public class POSTLogin extends ResponseJSON
     public String apiKey;
     public Date createdAt;
 
-    private POSTLogin()
+    public POSTLogin()
     {
     }
 

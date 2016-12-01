@@ -61,7 +61,6 @@ public class MyListener implements View.OnClickListener {
     public static void setImage()
     {
         iv.setImageURI(uri);
-
     }
 
 }

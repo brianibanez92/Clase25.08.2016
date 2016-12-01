@@ -11,8 +11,8 @@ public class DialogListener implements DialogInterface.OnClickListener
 {
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
-
+    public void onClick(DialogInterface dialog, int which)
+    {
         if (which == AlertDialog.BUTTON_NEGATIVE)
         {
             Log.d("CLICK EN EL NEGATIVO", "Botton " + which);
@@ -25,7 +25,6 @@ public class DialogListener implements DialogInterface.OnClickListener
         {
             Log.d("CLICK EN EL NEUTRAL", "Botton " + which);
         }
-
     }
 
 }

@@ -1,5 +1,7 @@
 package ibanez.brian.esoquieroapp.Models;
 
+import android.net.Uri;
+
 import java.util.Date;
 
 /**
@@ -12,18 +14,20 @@ public class CategoryModel {
     private String description;
     private boolean favorite;
     private Date createdDate;
+    private Uri uri;
 
     public CategoryModel()
     {
     }
 
-    public CategoryModel(int id, String categoryName, String description, boolean favorite, Date createdDate)
+    public CategoryModel(int id, String categoryName, String description, boolean favorite, Date createdDate, Uri uri)
     {
         this.id = id;
         this.categoryName = categoryName;
         this.description = description;
         this.favorite = favorite;
         this.createdDate = createdDate;
+        this.uri = uri;
     }
 
     public String getCategoryName()
@@ -71,6 +75,14 @@ public class CategoryModel {
     public void setCreatedDate(Date createdDate)
     {
         this.createdDate = createdDate;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
 }

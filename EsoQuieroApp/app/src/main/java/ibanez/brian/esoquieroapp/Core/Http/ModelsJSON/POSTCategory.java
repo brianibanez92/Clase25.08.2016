@@ -14,7 +14,7 @@ public class POSTCategory extends ResponseJSON
 {
     public int categoria_id;
 
-    private POSTCategory()
+    public POSTCategory()
     {
     }
 
