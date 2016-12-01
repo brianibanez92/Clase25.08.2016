@@ -6,5 +6,6 @@ package com.trabajo.utn.trabajo_practico.utils.enumerados;
 
 public enum Metodo {
     GET,
-    POST
+    POST,
+    PUT
 }

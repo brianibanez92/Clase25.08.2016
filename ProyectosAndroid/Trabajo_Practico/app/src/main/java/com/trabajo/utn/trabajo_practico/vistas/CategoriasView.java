@@ -25,13 +25,15 @@ public class CategoriasView extends RecyclerView.ViewHolder implements View.OnCl
     private TextView tvDescripcion;
     private ImageView ivFoto;
     private int index;
+    private String apiKey;
 
 
-    public CategoriasView(View v) {
+    public CategoriasView(View v,String apiKey) {
         super(v);
         setTvNombre((TextView)v.findViewById(R.id.txtNombre));
         setTvDescripcion((TextView)v.findViewById(R.id.txtDescripcion));
         setIvFoto((ImageView)v.findViewById(R.id.imgFoto));
+        this.apiKey=apiKey;
         v.setOnClickListener(this);
     }
 
@@ -74,7 +76,10 @@ public class CategoriasView extends RecyclerView.ViewHolder implements View.OnCl
 
         i.putExtra("txtName",this.getTvNombre().getText());
         i.putExtra("txtDescripcion",this.getTvDescripcion().getText());
-        i.putExtra("idFoto",this.getIvFoto().getId());
+        i.putExtra("apiKey",this.apiKey);
+        i.putExtra("idCategoria",index);
+        i.putExtra("operacion","UPDATE");
+
         context.startActivity(i);
     }
 }

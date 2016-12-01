@@ -1,19 +1,13 @@
 package com.trabajo.utn.trabajo_practico.modelos;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.api.client.json.Json;
-import com.trabajo.utn.trabajo_practico.CategoriaActivity;
-import com.trabajo.utn.trabajo_practico.CategoriasActivity;
 import com.trabajo.utn.trabajo_practico.R;
 import com.trabajo.utn.trabajo_practico.utils.hilos.HiloCategoria;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriasView;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +18,17 @@ import java.util.List;
 
 public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
     private List<CategoriaModel> categorias;
+    private String apiKey;
 
-    public CategoriasModel() {categorias=new ArrayList<>();}
+    public CategoriasModel(String apiKey) {
+        categorias=new ArrayList<>();
+        this.apiKey=apiKey;
+    }
 
     @Override
     public CategoriasView onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.categoria_item,parent,false);
-        CategoriasView myViewHolder=new CategoriasView(v);
+        CategoriasView myViewHolder=new CategoriasView(v,apiKey);
         return myViewHolder;
     }
 
@@ -53,5 +51,9 @@ public class CategoriasModel extends RecyclerView.Adapter<CategoriasView>{
 
     public void addCategoria(CategoriaModel categoria){
         categorias.add(categoria);
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 }

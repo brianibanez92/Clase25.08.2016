@@ -11,10 +11,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.trabajo.utn.trabajo_practico.controladores.CategoriaController;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
-import com.trabajo.utn.trabajo_practico.modelos.clases.Credencial;
 import com.trabajo.utn.trabajo_practico.modelos.clases.Estado;
 import com.trabajo.utn.trabajo_practico.vistas.CategoriaView;
 
@@ -29,6 +30,8 @@ public class CategoriaActivity extends AppCompatActivity implements Handler.Call
     CategoriaController controller;
     CategoriaView view;
     private String apiKey;
+    private String operacion;
+    private int id_categoria=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,16 @@ public class CategoriaActivity extends AppCompatActivity implements Handler.Call
 
         Bundle extras = getIntent().getExtras();
         apiKey=extras.getString("apiKey");
+        operacion=extras.getString("operacion");
+
+        if("UPDATE".equals(operacion)){
+            Button btn=(Button) findViewById(R.id.btnCrearCategoria);
+            ((EditText)findViewById(R.id.txtNombreCategoria)).setText(extras.getString("txtName"));
+            ((EditText)findViewById(R.id.txtDescripcionCategoria)).setText(extras.getString("txtDescripcion"));
+
+            id_categoria=extras.getInt("idCategoria");
+            btn.setText(getString(R.string.Update));
+        }
 
         ActionBar myActionBar = getSupportActionBar();
         myActionBar.setDisplayHomeAsUpEnabled(true);
@@ -75,6 +88,7 @@ public class CategoriaActivity extends AppCompatActivity implements Handler.Call
     @Override
     public boolean handleMessage(Message message) {
         JSONObject json= (JSONObject)message.obj;
+        //Muestra mensaje cuando es necesario porque en el response a veces no existe message
         Estado estado=new Estado(json,true);
         this.showEstadoNuevaCategoria(estado);
         return false;
@@ -105,5 +119,9 @@ public class CategoriaActivity extends AppCompatActivity implements Handler.Call
                         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public int getId_categoria() {
+        return id_categoria;
     }
 }

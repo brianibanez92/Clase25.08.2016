@@ -11,9 +11,9 @@
     <string name="message_register">Register</string>
     <string name="form_register">Registration Form</string>
     <string name="message_login">Login</string>
-    <string name="message_name">Name</string>
+    <string name="message_name">Enter your Name</string>
     <string name="message_description">Description</string>
-    <string name="message_last_name">LastName</string>
+    <string name="message_last_name">Enter your LastName</string>
     <string name="message_repeat_password">Re-enter your password</string>
     <string name="lbl_registration">Registration</string>
     <string name="lbl_login">Login</string>
@@ -21,4 +21,5 @@
     <string name="lbl_category">Category</string>
     <string name="message_favourite">Favourite</string>
     <string name="message_create_category">Create Category</string>
+    <string name="Update">Update</string>
 </resources>

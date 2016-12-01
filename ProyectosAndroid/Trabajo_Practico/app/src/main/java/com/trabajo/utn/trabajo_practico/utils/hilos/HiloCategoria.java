@@ -46,6 +46,7 @@ public class HiloCategoria extends Thread{
                 holder.getTvNombre().setText(c.getNombre());
                 holder.getTvDescripcion().setText(c.getDescripcion());
                 if(c.getRutaFoto()!=null) {holder.getIvFoto().setImageBitmap(image);}
+                holder.setIndex(position);
             }
         });
     }

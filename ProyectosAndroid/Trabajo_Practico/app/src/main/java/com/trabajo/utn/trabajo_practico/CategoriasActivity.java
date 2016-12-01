@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,9 +19,7 @@ import android.view.View;
 
 import com.trabajo.utn.trabajo_practico.modelos.CategoriaModel;
 import com.trabajo.utn.trabajo_practico.modelos.CategoriasModel;
-import com.trabajo.utn.trabajo_practico.modelos.clases.Credencial;
 import com.trabajo.utn.trabajo_practico.modelos.clases.Estado;
-import com.trabajo.utn.trabajo_practico.utils.Utils;
 import com.trabajo.utn.trabajo_practico.utils.enumerados.Metodo;
 import com.trabajo.utn.trabajo_practico.utils.enumerados.URLS;
 import com.trabajo.utn.trabajo_practico.utils.hilos.HiloHttp;
@@ -32,9 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 /**
  * Created by julian.moreno on 9/25/2016.
  */
@@ -50,9 +44,9 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
         setContentView(R.layout.categorias_main);
 
         Bundle extras = getIntent().getExtras();
-        apiKey = extras.getString("apiKey");
+        apiKey=extras.getString("apiKey");
 
-        if(apiKey==null){
+        if(getApiKey() ==null){
             Log.d("USUARIO","USUARIO NO LOGEADO");
             Intent i=new Intent(this, LoginActivity.class);
             this.startActivity(i);
@@ -62,7 +56,7 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
             myActionBar.setDisplayHomeAsUpEnabled(true);
 
             rv=(RecyclerView)findViewById(R.id.rvCategorias);
-            model=new CategoriasModel();
+            model=new CategoriasModel(apiKey);
             rv.setAdapter(model);
             RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
             rv.setLayoutManager(manager);
@@ -73,7 +67,8 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
                 public void onClick(View view) {
                     Context context=view.getContext();
                     Intent i=new Intent(context, CategoriaActivity.class);
-                    i.putExtra("apiKey",apiKey);
+                    i.putExtra("apiKey", getApiKey());
+                    i.putExtra("operacion","ADD");
                     context.startActivity(i);
                     CategoriasActivity.this.finish();
                 }
@@ -113,7 +108,7 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
         return false;
     }
     public void obtenerCategorias(){
-        HttpManager manager=new HttpManager(Metodo.GET, URLS.CATEGORIAS,apiKey);
+        HttpManager manager=new HttpManager(Metodo.GET, URLS.CATEGORIAS, getApiKey());
         Handler handler=new Handler(this);
         HiloHttp hilo=new HiloHttp(handler,manager);
         hilo.start();
@@ -136,5 +131,9 @@ public class CategoriasActivity extends AppCompatActivity implements Handler.Cal
                         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 }

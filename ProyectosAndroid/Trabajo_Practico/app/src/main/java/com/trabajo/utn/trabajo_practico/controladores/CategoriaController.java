@@ -35,7 +35,7 @@ public class CategoriaController implements View.OnClickListener{
     public static final int CAMARA_PERMISO=0;
 
     private static String MEDIA_DIRECTORY = "Categorias";
-    private String mPath;
+    private String mPath="Image";
     private CategoriaActivity activity;
     private CategoriaView view;
 
@@ -62,12 +62,21 @@ public class CategoriaController implements View.OnClickListener{
                 params.appendQueryParameter("titulo",nombre);
                 params.appendQueryParameter("descripcion", descripcion);
                 params.appendQueryParameter("url_foto",mPath);
-                Log.d("PATH:","path:"+mPath);
+                params.appendQueryParameter("categoria_id",String.valueOf(activity.getId_categoria()));
 
-                HttpManager manager=new HttpManager(Metodo.POST,URLS.CATEGORIAS,params,activity.getApiKey());
-                Handler handler=new Handler(activity);
-                HiloHttp hilo=new HiloHttp(handler,manager);
-                hilo.start();
+
+                if(activity.getId_categoria()==0) {
+                    HttpManager manager = new HttpManager(Metodo.POST, URLS.CATEGORIAS, params, activity.getApiKey());
+                    Handler handler = new Handler(activity);
+                    HiloHttp hilo = new HiloHttp(handler, manager);
+                    hilo.start();
+                }else{
+                    Log.d("PUT:", "api:" + activity.getApiKey() + "ID_CATEGORIA"+activity.getId_categoria());
+                    HttpManager manager = new HttpManager(Metodo.PUT, URLS.CATEGORIAS, params, activity.getApiKey());
+                    Handler handler = new Handler(activity);
+                    HiloHttp hilo = new HiloHttp(handler, manager);
+                    hilo.start();
+                }
             }
         }
     }
